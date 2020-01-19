@@ -298,7 +298,160 @@
 ## 事务
 
  	1. 事务的基本介绍
-      	1. 概念: 
-          * 如果一个包含多个步骤的业务操作被事务管理, 要么这些操作同时成功, 或者同时失败.
- 	2. 事务的四大特征
- 	3. 事务的隔离级别(了解)
+      	1. 概念:
+          
+              	* 如果一个包含多个步骤的业务操作被事务管理, 要么这些操作同时成功, 或者同时失败.
+          
+      	2. 操作
+      
+          * 开启事务 `start transaction`
+          * 回滚: `rollback`
+          * 提交: `commit`
+      
+      	3. 例子
+      
+          ```sql
+          CREATE TABLE `account` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+            `balance` double DEFAULT NULL,
+            PRIMARY KEY (`id`)
+          ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+          
+          -- 开启事务
+          START TRANSACTION;
+          UPDATE account SET balance = balance - 500 WHERE name = "张三";
+          UPDATE account SET balance = balance - 500 WHERE name = "李四";
+          -- 如果出错
+          ROLLBACK;
+          -- 如果没错
+          COMMIT;
+          ```
+      
+      	4. MySQL数据库中事务默认自动提交
+      
+          * 事务提交的两种方式
+            * 自动提交
+              * MySQL就是自动提交的
+              * 一条DML(增删改)语句会自动提交一次事务
+            * 手动提交:
+              * Oracle数据库默认是手动提交事务
+              * 需要先开启事务再提交
+          * 修改事务的默认提交方式
+            * 查看事务的默认提交方式:  `SELECT @@autocommit;`
+            * 修改事务的默认提交方式: `set @@autocommit = 1; 1开启自动提交, 0关闭自动提交`
+      
+  2. 事务的四大特征
+
+        	1. 原子性: 是不可分割的最小单位, 要么同时成功, 要么同时失败.
+        	2. 持久性: 当事务提交或回滚后, 数据库会持久化的保存数据.
+        	3. 隔离性: 多个事务之间, 相互独立.
+        	4. 一致性: 开始和结束之间的状态不会被其他事务看到.
+
+  3. 事务的隔离级别(了解)
+
+     * 概念: 多个事务是隔离的, 相互独立的. 但是如果多个事务操作同一批数据, 则会引发一些问题,设置不同的隔离级别就可以解决这些问题.
+     * 存在的问题:
+       1. 脏读: 一个事务读取到另一个事务没有提交的数据
+       2. 不可重复读(虚读): 在同一个事务中, 两次读取的数据不一样.
+       3. 幻读: 数据表中所有的记录, 另一个事物添加了一条数据, 则第一个事务查询不到自己的修改.
+
+     * 隔离级别:
+
+       1. read umcommited: 读未提交
+
+          产生的问题: 脏读, 不可重复读, 幻读
+
+       2. read commited: 读已提交
+
+          产生的问题: 不可重复读, 幻读
+
+       3. repeatable read: 可重复读
+
+          产生的问题: 幻读
+
+       4. serializable: 串行化
+
+          可以解决所有问题
+
+       > 注意: 隔离级别从小到大安全性越来越高, 但是性能越来越低
+       >
+       > 数据库查询隔离级别: `select @@transaction_isolation;`
+       >
+       > 设置数据库隔离级别: `SET transaction_isolation = value;`
+
+       
+
+       ```sql
+       			set global transaction isolation level read uncommitted;
+       			start transaction;
+       			-- 转账操作
+       			update account set balance = balance - 500 where id = 1;
+       			update account set balance = balance + 500 where id = 2;
+       ```
+
+## DCL
+
+ * SQL分类
+   1. DDL: 操作数据库和表
+   2. DML: 增删改表中数据
+   3. DQL: 查询表中的数据
+   4. DCL: 管理用户, 授权
+
+* DBA: 数据库管理员
+
+* DCL: 管理用户, 授权
+
+  1. 管理用户
+
+     ```sql
+     -- 增加用户
+     CREATE USER 'tomcat'@'localhost' IDENTIFIED BY 'root';
+     -- 修改密码
+     UPDATE USER SET PASSWORD = PASSWORD('新密码') WHERE USER = '用户名';
+     UPDATE USER SET PASSWORD = PASSWORD('abc') WHERE USER = 'lisi';
+     SET PASSWORD FOR '用户名'@'主机名' = PASSWORD('新密码');
+     SET PASSWORD FOR 'root'@'localhost' = PASSWORD('123');
+     -- 删除用户
+     DROP USER '用户名'@'主机名';
+     -- 查询用户
+     -- 1. 切换到mysql数据库
+     USE myql;
+     -- 2. 查询user表
+     SELECT * FROM USER;
+     * 通配符： % 表示可以在任意主机使用用户登录数据库
+     			权限管理
+     			1. 查询权限：
+     				-- 查询权限
+     				SHOW GRANTS FOR '用户名'@'主机名';
+     				SHOW GRANTS FOR 'lisi'@'%';
+     
+     			2. 授予权限：
+     				-- 授予权限
+     				grant 权限列表 on 数据库名.表名 to '用户名'@'主机名';
+     				-- 给张三用户授予所有权限，在任意数据库任意表上
+     				
+     				GRANT ALL ON *.* TO 'zhangsan'@'localhost';
+     			3. 撤销权限：
+     				-- 撤销权限：
+     				revoke 权限列表 on 数据库名.表名 from '用户名'@'主机名';
+     				REVOKE UPDATE ON db3.`account` FROM 'lisi'@'%';
+     ```
+
+     * MySQL中忘记密码:
+
+       ```sql
+       1. cmd -- > net stop mysql 停止mysql服务
+       * 需要管理员运行该cmd
+       2. 使用无验证方式启动mysql服务： mysqld --skip-grant-tables
+       3. 打开新的cmd窗口,直接输入mysql命令，敲回车。就可以登录成功
+       4. use mysql;
+       5. update user set password = password('你的新密码') where user = 'root';
+       6. 关闭两个窗口
+       7. 打开任务管理器，手动结束mysqld.exe 的进程
+       8. 启动mysql服务
+       9. 使用新密码登录。
+       ```
+
+       
+
