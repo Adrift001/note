@@ -2,7 +2,7 @@
 
 1. 什么是SQL
 
-> 结构化查询语言
+> 结构化查询语言 
 
 1. 通用语法
 
@@ -36,8 +36,10 @@
 >    * 查询所有数据库名称: show databases;
 >    * 查询创建数据库语句: show create database mysql;
 > 3. U\(Update\): 修改
+>    
 >    * 修改数据库字符集: alter database db\_name character set utf8;
 > 4. D\(Delete\): 删除
+>    
 >    * 删除数据库: drop database if exists db\_name;
 > 5. 使用数据库
 >    * 查询当前数据库: select database\(\);
@@ -49,13 +51,13 @@
 >
 >    create table 表名\(
 >
->    ​ 列名1 数据类型1,
+>     列名1 数据类型1,
 >
->    ​ 列名2 数据类型2
+>     列名2 数据类型2
 >
->    ​ ...
+>     ...
 >
->    ​ 列名n 数据类型n
+>     列名n 数据类型n
 >
 >    \);
 >

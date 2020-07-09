@@ -1,6 +1,6 @@
 # JDBC连接池&JDBCTemplate
 
-1. 数据库连接池
+1. 数据库连接池 
 2. Spring JDBCTemplate
 
 ## 数据库连接池

@@ -1,6 +1,6 @@
 # 2-自定义MyBatis
 
-自定义mybatis分析
+自定义mybatis分析 
 
 1. 创建代理对象
 2. 在代理对象中调用selectList方法

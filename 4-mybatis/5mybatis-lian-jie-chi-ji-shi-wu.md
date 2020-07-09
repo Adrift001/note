@@ -4,7 +4,7 @@
 
    mybatis中连接池使用及分析
 
-   mybatis事务控制的分析
+   mybatis事务控制的分析 
 
 2. mybatis基于XML配置的动态SQL语句使用
 

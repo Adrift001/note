@@ -4,7 +4,7 @@
 <!--
     <select id="findUserByCondition" parameterType="com.swifter.domain.User" resultType="com.swifter.domain.User">
         select * from user where 1=1
-        <if test="username != null">
+        <if test="username != null"> 
             and username = #{username}
         </if>
         <if test="sex != null">

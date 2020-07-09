@@ -4,7 +4,7 @@
     <!--resource 用户指定配置文件的位置,是按照类路径的写法来写, 并且必须存在于类路径下-->
     <!--<properties resource="jdbcConfig.properties">-->
 
-    <!-- 按照URL方式来写地址 -->
+    <!-- 按照URL方式来写地址 --> 
     <properties url="file:///User/document/...">
     <!--<property name="driver" value="com.mysql.jdbc.Driver"/>-->
     <!--<property name="url" value="jdbc:mysql://localhost:3306/eesy?characterEncoding=UTF-8"/>-->
