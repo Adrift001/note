@@ -5,5 +5,3 @@
 
 ## MySQL
 
-* [Untitled](mysql/untitled.md)
-
