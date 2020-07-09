@@ -1,4 +1,4 @@
-# MyBatis中的多表查询
+# 7-MyBatis多表操作
 
 表之间的关系有几种:
 
@@ -9,15 +9,15 @@
 
 举例:
 
-​	用户和订单,一对多
+​ 用户和订单,一对多
 
-​	一个人只能有一个身份证号,一对一
+​ 一个人只能有一个身份证号,一对一
 
-​	一个学生可以被多个老师教, 多对多
+​ 一个学生可以被多个老师教, 多对多
 
 特例: 如果每个订单只属于一个用户, 所以MyBatis就把多对一看成一对一.
 
-```
+```text
 <!--封装account和user的resultMap-->
     <resultMap id="accountUserMap" type="com.swifter.domain.Account">
         <id property="id" column="aid"></id>
@@ -40,7 +40,7 @@
     </select>
 ```
 
-```
+```text
 public class Account implements Serializable {
     private Integer id;
     private Integer uid;
@@ -92,31 +92,26 @@ public class Account implements Serializable {
 }
 ```
 
-
-
 mybatis中的多表查询:
 
-​	示例: 用户和账户
+​ 示例: 用户和账户
 
-​		一个用户可以有多个账户
+​ 一个用户可以有多个账户
 
-​		一个账户只能属于一个用户
+​ 一个账户只能属于一个用户
 
-​	步骤:
+​ 步骤:
 
-  1. 先建立两张表, 一张用户表, 一张账户表.
+1. 先建立两张表, 一张用户表, 一张账户表.
+2. 建立实体类, 用户实体类, 账户实体类
+3. 建立两个配置文件
+4. 实现配置
 
-  2. 建立实体类, 用户实体类, 账户实体类
+   当我们查询用户时, 可以同时得到用户下所包含的账户信息.
 
-  3. 建立两个配置文件
+   当我们查询账户时,可以同时得到账户的所有信息.
 
-  4. 实现配置
-
-     当我们查询用户时, 可以同时得到用户下所包含的账户信息.
-
-     当我们查询账户时,可以同时得到账户的所有信息.
-
-```
+```text
     <!--一对多  定义user resultMap-->
     <resultMap id="userAccountMap" type="user">
         <id property="id" column="id"></id>
@@ -138,7 +133,7 @@ mybatis中的多表查询:
     </select>
 ```
 
-```
+```text
 public class User implements Serializable{
 
     private Integer id;
@@ -214,15 +209,12 @@ public class User implements Serializable{
 
 示例: 用户和角色
 
-步骤: 
+步骤:
 
 1. 两张表: 用户, 角色 还有中间表
-
 2. 建立两个实体类, 用户角色各自包含对方一个集合引用
-
 3. 两个配置文件: 用户配置文件, 角色配置文件
-
-4. 实现配置: 
+4. 实现配置:
 
    当查询用户时, 可以同时得到用户所包含的角色信息
 
