@@ -1,0 +1,6 @@
+[book]
+authors = ["Optional"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Optional Note"
