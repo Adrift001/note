@@ -14,6 +14,7 @@ before_script:
 
 script:
   - mdbook build
+  - echo "note.jingxuetao.com" > docs/CNAME
 
 deploy:
   provider: pages
