@@ -5,7 +5,6 @@
    2. 聚合函数
    3. 分组查询
    4. 分页查询
-
 2. 约束
 3. 多表时间的关系
 4. 范式
@@ -15,7 +14,7 @@
 
 1. 排序查询
 
-   ```sql
+   ```sql,ignore
    order by 子句;
    	order by 排序字段1 排序方式2, 排序字段2 排序方式2...
    排序方式: 
@@ -46,7 +45,7 @@
 >
 >  	2. IFNULL函数
 
-```sql
+```sql,ignore
   SELECT COUNT(`name`) FROM student;
 
   SELECT COUNT(IFNULL(english,0)) FROM student;
@@ -61,7 +60,7 @@
 ```
 3. 分组查询
 
-   ```sql
+   ```sql,ignore
    group by 分组字段;
    ```
 
@@ -75,7 +74,7 @@
    >
    > 
 
-   ```sql
+   ```sql,ignore
    -- 按性别分组并计算平均分
    SELECT sex, AVG(math), COUNT(id) FROM student GROUP BY sex;
    
@@ -89,11 +88,11 @@
 
 4. 分页查询
 
-   ```sql
+   ```sql,ignore
    limit 开始索引, 查询的条数
    ```
 
-   ```sql
+   ```sql,ignore
    -- 每页显示三条记录
    SELECT * FROM student LIMIT 0,3; -- 第一页
    SELECT * FROM student LIMIT 3,3; -- 第二页
@@ -109,10 +108,10 @@
 
 * 分类: 
 
-   	1. 主键约束: primary key
-      	2. 非空约束: not null
-         	3. 唯一约束: unique
-            	4. 外键约束: foreign key
+   1. 主键约束: primary key
+   2. 非空约束: not null
+   3. 唯一约束: unique
+   4. 外键约束: foreign key
 
   ### 主键约束
 
@@ -122,19 +121,19 @@
 
   1. 创建表时添加主键
 
-     ```sql
+     ```sql,ignore
      CREATE TABLE stu(id INT PRIMARY KEY, name VARCHAR(20));
      ```
 
   2. 创建表之后添加主键
 
-     ```sql
+     ```sql,ignore
      ALTER TABLE stu MODIFY id INT PRIMARY KEY;
      ```
 
   3. 删除主键
 
-     ```sql
+     ```sql,ignore
      ALTER TABLE stu MODIFY id int; -- 错误,不生效
      ALTER TABLE stu DROP PRIMARY KEY;
      ```
@@ -143,7 +142,7 @@
 
      * 如果某一列是数值类型, 使用`auto_increment`可以用来完成值的自动增长.
 
-       ```sql
+       ```sql,ignore
        -- 创建表时添加自动增长
        CREATE TABLE stu(id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(20));
        
@@ -158,20 +157,20 @@
 
   1. 创建表时添加约束
 
-     ```sql
+     ```sql,ignore
      CREATE TABLE stu(id INT, name VARCHAR(20) NOT NULL);
      ```
 
   2. 创建表完之后添加非空约束
 
-     ```sql
+     ```sql,ignore
      ALTER TABLE stu MODIFY `name` VARCHAR(20) NOT NULL;
      ALTER TABLE stu CHANGE `name` `name` VARCHAR(20) NOT NULL;
      ```
 
   3. 删除非空约束
 
-     ```sql
+     ```sql,ignore
      ALTER TABLE stu MODIFY `name` VARCHAR(20);
      ALTER TABLE stu CHANGE `name` `name` VARCHAR(20);
      ```
@@ -182,29 +181,29 @@
 
   1. 创建表时添加唯一约束
 
-     ```sql
+     ```sql,ignore
      CREATE TABLE stu(id INT, phone VARCHAR(20) UNIQUE);
      -- 注意: MySQL中, 唯一约束限定的列的值可以有多个null
      ```
 
   2. 创建表后添加
 
-     ```sql
+     ```sql,ignore
      ALTER TABLE stu MODIFY phone VARCHAR(20) UNIQUE;
      ```
 
   3. 删除唯一约束
 
-     ```sql
+     ```sql,ignore
      ALTER TABLE stu MODIFY phone VARCHAR(20); -- 不能通过这种方式
      ALTER TABLE stu DROP INDEX phone;
      ```
 
-> 注意: MySQL中唯一约束限定的列的值可以有多个null
+   > 注意: MySQL中唯一约束限定的列的值可以有多个null
 
-	### 	外键约束
+	### 外键约束
 
-```sql
+```sql,ignore
 CREATE TABLE emp (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	NAME VARCHAR(30),
@@ -212,7 +211,9 @@ CREATE TABLE emp (
 	dep_name VARCHAR(30),
 	dep_location VARCHAR(30)
 );
+```
 
+```sql,ignore
 -- 添加数据
 INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('张三', 20, '研发部', '广州');
 INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('李四', 21, '研发部', '广州');
@@ -220,7 +221,9 @@ INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('王五', 20, '研�
 INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('老王', 20, '销售部', '深圳');
 INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('大王', 22, '销售部', '深圳');
 INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('小王', 18, '销售部', '深圳');
+```
 
+```sql,ignore
 -- 数据有冗余
 
 -- 解决方案：分成 2 张表
@@ -254,7 +257,9 @@ INSERT INTO employee (NAME, age, dep_id) VALUES ('老王', 20, 2);
 INSERT INTO employee (NAME, age, dep_id) VALUES ('大王', 22, 2);
 INSERT INTO employee (NAME, age, dep_id) VALUES ('小王', 18, 2);
 select * from employee;
+```
 
+```sql,ignore
 -- 删除外键
 ALTER TABLE employee DROP FOREIGN KEY emp_dept_fk;
 
@@ -279,9 +284,9 @@ ALTER TABLE employee ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dep_id) REFERENCES 
 
      1. 分类
 
-         	1. 一对一:
-             * 人和身份证
-             * 分析: 一个人有一个身份证, 一个身份证对应一个人
+         1. 一对一:
+            * 人和身份证
+            * 分析: 一个人有一个身份证, 一个身份证对应一个人
         	2. 一对多(多对一):
             * 部门和员工
             * 分析: 一个部门有多个员工, 一个员工只能对应一个部门
@@ -291,9 +296,9 @@ ALTER TABLE employee ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dep_id) REFERENCES 
 
      2. 实现:
 
-         	1. 一对多:
-             * 部门和员工
-             * 实现方式: 在多的一方建立外键, 指向一的一方的主键.
+         1. 一对多:
+            * 部门和员工
+            * 实现方式: 在多的一方建立外键, 指向一的一方的主键.
         	2. 多对多:
             * 学生和课程
             * 实现方式: 多对多关系实现需要借助第三张中间表,中间表至少包含两个字段, 这两个字段作为第三张表的外键, 分别指向其他两张表的主键.

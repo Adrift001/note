@@ -1,6 +1,8 @@
 [book]
 authors = ["Optional"]
-language = "en"
+language = "zh-cn"
 multilingual = false
 src = "src"
 title = "Optional Note"
+[build]
+build-dir = "docs"

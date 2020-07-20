@@ -218,7 +218,7 @@
 
           * 子查询
 
-            ```
+            ```sql, ignore
             -- 查询员工入职日期是2011-11-11之后的员工信息和部门信息
             SELECT * FROM emp WHERE joindate > "2001-05-01";
             SELECT * FROM dept t1, (SELECT * FROM emp WHERE joindate > "2001-05-01") t2 WHERE t1.id = t2.dept_id;
@@ -230,8 +230,6 @@
             -- 普通内连接
             SELECT * FROM emp t1, dept t2 WHERE t1.dept_id = t2.id AND t1.joindate > "2001-05-01";
             ```
-
-            
 
   * 多表查询练习
 
@@ -297,56 +295,55 @@
 
 ## 事务
 
- 	1. 事务的基本介绍
-      	1. 概念:
-          
-              	* 如果一个包含多个步骤的业务操作被事务管理, 要么这些操作同时成功, 或者同时失败.
-          
-      	2. 操作
-      
-          * 开启事务 `start transaction`
-          * 回滚: `rollback`
-          * 提交: `commit`
-      
-      	3. 例子
-      
-          ```sql
-          CREATE TABLE `account` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `name` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-            `balance` double DEFAULT NULL,
-            PRIMARY KEY (`id`)
-          ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-          
-          -- 开启事务
-          START TRANSACTION;
-          UPDATE account SET balance = balance - 500 WHERE name = "张三";
-          UPDATE account SET balance = balance - 500 WHERE name = "李四";
-          -- 如果出错
-          ROLLBACK;
-          -- 如果没错
-          COMMIT;
-          ```
-      
-      	4. MySQL数据库中事务默认自动提交
-      
-          * 事务提交的两种方式
-            * 自动提交
-              * MySQL就是自动提交的
-              * 一条DML(增删改)语句会自动提交一次事务
-            * 手动提交:
-              * Oracle数据库默认是手动提交事务
-              * 需要先开启事务再提交
-          * 修改事务的默认提交方式
-            * 查看事务的默认提交方式:  `SELECT @@autocommit;`
-            * 修改事务的默认提交方式: `set @@autocommit = 1; 1开启自动提交, 0关闭自动提交`
+1. 事务的基本介绍 
+   1. 概念:
+      * 如果一个包含多个步骤的业务操作被事务管理, 要么这些操作同时成功, 或者同时失败.
+   2. 操作
+
+      * 开启事务 `start transaction`
+      * 回滚: `rollback`
+      * 提交: `commit`
+  
+    3. 例子
+
+      ```sql,ignore
+      CREATE TABLE `account` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `name` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+        `balance` double DEFAULT NULL,
+        PRIMARY KEY (`id`)
+      ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+      ```
+      ```sql,ignore
+      -- 开启事务
+      START TRANSACTION;
+      UPDATE account SET balance = balance - 500 WHERE name = "张三";
+      UPDATE account SET balance = balance - 500 WHERE name = "李四";
+      -- 如果出错
+      ROLLBACK;
+      -- 如果没错
+      COMMIT;
+      ```
+  
+    4. MySQL数据库中事务默认自动提交
+  
+      * 事务提交的两种方式
+        * 自动提交
+          * MySQL就是自动提交的
+          * 一条DML(增删改)语句会自动提交一次事务
+        * 手动提交:
+          * Oracle数据库默认是手动提交事务
+          * 需要先开启事务再提交
+      * 修改事务的默认提交方式
+        * 查看事务的默认提交方式:  `SELECT @@autocommit;`
+        * 修改事务的默认提交方式: `set @@autocommit = 1; 1开启自动提交, 0关闭自动提交`
       
   2. 事务的四大特征
 
-        	1. 原子性: 是不可分割的最小单位, 要么同时成功, 要么同时失败.
-        	2. 持久性: 当事务提交或回滚后, 数据库会持久化的保存数据.
-        	3. 隔离性: 多个事务之间, 相互独立.
-        	4. 一致性: 开始和结束之间的状态不会被其他事务看到.
+      1. 原子性: 是不可分割的最小单位, 要么同时成功, 要么同时失败.
+      2. 持久性: 当事务提交或回滚后, 数据库会持久化的保存数据.
+      3. 隔离性: 多个事务之间, 相互独立.
+      4. 一致性: 开始和结束之间的状态不会被其他事务看到.
 
   3. 事务的隔离级别(了解)
 
@@ -380,14 +377,12 @@
        >
        > 设置数据库隔离级别: `SET transaction_isolation = value;`
 
-       
-
-       ```sql
-       			set global transaction isolation level read uncommitted;
-       			start transaction;
-       			-- 转账操作
-       			update account set balance = balance - 500 where id = 1;
-       			update account set balance = balance + 500 where id = 2;
+       ```sql,ignore
+        set global transaction isolation level read uncommitted;
+        start transaction;
+        -- 转账操作
+        update account set balance = balance - 500 where id = 1;
+        update account set balance = balance + 500 where id = 2;
        ```
 
 ## DCL

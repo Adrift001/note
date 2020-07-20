@@ -14,7 +14,7 @@
 >
 > 4. 三种注释
 >
->    ```
+>    ```sql,ignore
 >    -- 单行注释
 >    # 单行注释
 >    /* */多行注释
@@ -88,7 +88,7 @@
 >
 >    	6. varchar(20) 字符串类型,最大20个字符
 >
-> ```sql
+> ```sql,ignore
 > //创建表
 > create table student(
 > 	id int,
@@ -122,20 +122,20 @@
 
 1. 添加数据
 
-   ```sql
+   ```sql,ignore
    insert into 表名(列名1, 列名2,...) values (值1, 值2, ...);
    ```
 
 2. 删除数据
 
-   ```sql
+   ```sql,ignore
    delete from 表名 [where 条件];
    TRUNCATE TABLE 表名; //删除表, 并创建一个一模一样的表
    ```
 
 3. 修改数据
 
-   ```sql
+   ```sql,ignore
    update 表名 set 列名1=值1, 列名2=值2,...[where 条件];
    ```
 
@@ -143,7 +143,7 @@
 
 1. 语法
 
-   ```
+   ```sql,ignore
    select 
    	字段列表
    from
@@ -197,7 +197,7 @@
 
    2. 运算符
 
-      ```
+      ```sql,ignore
       > < <= >= = <>
       BETWEEN...AND
       IN(集合)
@@ -208,7 +208,7 @@
       NOT 或 !
       ```
 
-      ```sql
+      ```sql,ignore
       -- 查询年龄大于20岁
       SELECT * FROM student WHERE age > 20;
       SELECT * FROM student WHERE age >= 20;
