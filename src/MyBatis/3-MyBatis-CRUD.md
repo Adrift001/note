@@ -1,6 +1,4 @@
-# 3-MyBatis CRUD
-
-## dao 
+## dao
 
 ```java
 package com.swifter.dao;
@@ -168,7 +166,7 @@ public class User implements Serializable{
 
 com/swifter/dao
 
-```markup
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper

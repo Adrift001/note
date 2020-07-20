@@ -1,10 +1,8 @@
-# 6-动态SQL
-
-```text
+```
 <!--
     <select id="findUserByCondition" parameterType="com.swifter.domain.User" resultType="com.swifter.domain.User">
         select * from user where 1=1
-        <if test="username != null"> 
+        <if test="username != null">
             and username = #{username}
         </if>
         <if test="sex != null">
@@ -41,7 +39,7 @@
     </select>
 ```
 
-```text
+```
 /**
      * 根据传入的参数条件查询
      * @return
@@ -56,7 +54,7 @@
     List<User> findUserInIds(QueryVo vo);
 ```
 
-```text
+```
 public class QueryVo {
     private List<Integer> ids;
 
@@ -70,7 +68,7 @@ public class QueryVo {
 }
 ```
 
-```text
+```
     @org.junit.Test
     public void findUserByCondition() {
         User user = new User();

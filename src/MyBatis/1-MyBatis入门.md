@@ -1,11 +1,9 @@
-# 1-MyBatis入门
-
-1. 创建maven工程并导入坐标 
+1. 创建maven工程并导入坐标
 2. 创建实体类和dao接口
 3. 创建mybatis的主配置文件`SqlMapConfig.xml`
 4. 创建映射配置文件`UserDao.xml`
 
-```text
+```
 .
 ├── main
 │   ├── java
@@ -30,7 +28,7 @@
                     └── MybatisTest.java
 ```
 
-```text
+```
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -64,7 +62,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 1. maven坐标
 
-   ```text
+   ```
        <dependencies>
            <dependency>
                <groupId>org.mybatis</groupId>
@@ -91,64 +89,64 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 2. 创建实体类和dao接口
 
-   ```text
+   ```
    package com.swifter.domain;
-
+   
    import java.io.Serializable;
    import java.util.Date;
-
+   
    /**
     * @author 黑马程序员
     * @Company http://www.ithiema.com
     */
    public class User implements Serializable{
-
+   
        private Integer id;
        private String username;
        private Date birthday;
        private String sex;
        private String address;
-
+   
        public Integer getId() {
            return id;
        }
-
+   
        public void setId(Integer id) {
            this.id = id;
        }
-
+   
        public String getUsername() {
            return username;
        }
-
+   
        public void setUsername(String username) {
            this.username = username;
        }
-
+   
        public Date getBirthday() {
            return birthday;
        }
-
+   
        public void setBirthday(Date birthday) {
            this.birthday = birthday;
        }
-
+   
        public String getSex() {
            return sex;
        }
-
+   
        public void setSex(String sex) {
            this.sex = sex;
        }
-
+   
        public String getAddress() {
            return address;
        }
-
+   
        public void setAddress(String address) {
            this.address = address;
        }
-
+   
        @Override
        public String toString() {
            return "User{" +
@@ -162,13 +160,13 @@ SET FOREIGN_KEY_CHECKS = 1;
    }
    ```
 
-   ```text
+   ```
    package com.swifter.dao;
-
+   
    import com.swifter.domain.User;
-
+   
    import java.util.List;
-
+   
    /**
     * @author 黑马程序员
     * @Company http://www.ithiema.com
@@ -176,7 +174,7 @@ SET FOREIGN_KEY_CHECKS = 1;
     * 用户的持久层接口
     */
    public interface IUserDao {
-
+   
        /**
         * 查询所有操作
         * @return
@@ -187,7 +185,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 3. 创建SqlMapConfig.xml文件
 
-   ```text
+   ```
    <?xml version="1.0" encoding="UTF-8"?>
    <!DOCTYPE configuration
            PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -210,7 +208,7 @@ SET FOREIGN_KEY_CHECKS = 1;
                </dataSource>
            </environment>
        </environments>
-
+   
        <!-- 指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件 -->
        <mappers>
            <mapper resource="com/itheima/dao/IUserDao.xml"/>
@@ -220,13 +218,13 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 4. 创建映射配置文件
 
-   ```text
+   ```
    <?xml version="1.0" encoding="UTF-8"?>
    <!DOCTYPE mapper
            PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    <mapper namespace="com.swifter.dao.IUserDao">
-           <!--namespace dao接口的全限定类名-->
+   		<!--namespace dao接口的全限定类名-->
        <!--配置查询所有-->
        <select id="findAll" resultType="com.swifter.domain.User">
            select * from user
@@ -236,9 +234,9 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 5. 测试
 
-   ```text
+   ```
    package com.swifter;
-
+   
    import com.swifter.dao.IUserDao;
    import com.swifter.domain.User;
    import org.apache.ibatis.io.Resources;
@@ -247,7 +245,7 @@ SET FOREIGN_KEY_CHECKS = 1;
    import org.apache.ibatis.session.SqlSessionFactoryBuilder;
    import java.io.InputStream;
    import java.util.List;
-
+   
    public class MyBatisTest {
        public static void main(String[] args) throws Exception {
            //1. 读取配置文件
@@ -273,9 +271,8 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 > 注意实现
 >
-> 1. 创建UserDao.xml 和 UserDao.java时, 名称是为了和之前的知识保持一致,mybatis把持久层操作接口名称和映射文件\(Mapper\) UserMapper和UserDao 应该只是名称的区别
+> 1. 创建UserDao.xml 和 UserDao.java时, 名称是为了和之前的知识保持一致,mybatis把持久层操作接口名称和映射文件(Mapper) UserMapper和UserDao 应该只是名称的区别
 > 2. 在idea中创建目录时和包不一样, 包创建com.swifter.dao是三级目录, 目录创建是一级目录.
 > 3. mybatis映射配置文件必须和dao接口包结构相同
 > 4. 映射配置文件的mapper标签namespace属性取值,必须是dao接口的全限定类名.
 > 5. 映射配置文件的操作配置,id属性取值必须是dao接口的方法名.
-

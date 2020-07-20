@@ -1,103 +1,121 @@
-# MySQL基础
+# SQL
 
 1. 什么是SQL
 
-> 结构化查询语言 
+> 结构化查询语言
 
-1. 通用语法
+2. 通用语法
 
 > 1. 单行或多行, 以分号结尾.
+>
 > 2. 用空格和缩进增强可读性
+>
 > 3. 不区分大小写, 关键字建议用大写.
+>
 > 4. 三种注释
 >
->    ```text
+>    ```
 >    -- 单行注释
 >    # 单行注释
 >    /* */多行注释
 >    ```
 
-1. SQL分类
+3. SQL分类
 
-> 1. DDL\(Data definition Language\) 数据定义语言, 定义数据库对象. 例如: 数据库, 表, 列等. 关键字: create, drop, alter等.
-> 2. DML\(Data Manipulation Language\) 桑菊操作语言 用来对数据库中的表的数据进行增删改, 关键字: insert, delete, update等.
-> 3. DQL\(Data Query Language\)数据查询语言 用来查询数据库中表的记录. 关键字: select, where等.
-> 4. DCL\(Data Control Language\)数据控制语言.用来定义数据库的访问级别以及创建用户. 关键字: grant, revoke等.
+> 1. DDL(Data definition Language) 数据定义语言, 定义数据库对象. 例如: 数据库, 表, 列等. 关键字: create,  drop, alter等.
+>
+> 2. DML(Data Manipulation Language) 桑菊操作语言 用来对数据库中的表的数据进行增删改, 关键字: insert, delete, update等.
+>
+> 3. DQL(Data Query Language)数据查询语言 用来查询数据库中表的记录. 关键字: select, where等.
+>
+> 4. DCL(Data Control Language)数据控制语言.用来定义数据库的访问级别以及创建用户. 关键字: grant, revoke等.
 
 ## DDL: 操作数据库, 表
 
 1. 操作数据库: CRUD
 
-> 1. C\(Create\): 创建
+> 1. C(Create): 创建
 >
 >    create database if not exists db character set gbk;
 >
-> 2. R\(Retrieve\): 查询
+> 2. R(Retrieve): 查询
+>
 >    * 查询所有数据库名称: show databases;
 >    * 查询创建数据库语句: show create database mysql;
-> 3. U\(Update\): 修改
->    
->    * 修改数据库字符集: alter database db\_name character set utf8;
-> 4. D\(Delete\): 删除
->    
->    * 删除数据库: drop database if exists db\_name;
+>
+> 3. U(Update): 修改
+>
+>    * 修改数据库字符集: alter database db_name character set utf8;
+>
+> 4. D(Delete): 删除
+>
+>    * 删除数据库: drop database if exists db_name;
+>
 > 5. 使用数据库
->    * 查询当前数据库: select database\(\);
->    * 使用数据库: use db\_name;
+>
+>    * 查询当前数据库: select database();
+>    * 使用数据库: use db_name;
 
-1. 操作表
+2. 操作表
 
-> 1. C\(Create\): 创建
+> 1. C(Create): 创建
 >
->    create table 表名\(
+>    create table 表名(
 >
->     列名1 数据类型1,
+>    ​	列名1 数据类型1,
 >
->     列名2 数据类型2
+>    ​	列名2 数据类型2
 >
->     ...
+>    ​	...
 >
->     列名n 数据类型n
+>    ​	列名n 数据类型n
 >
->    \);
+>    );
 >
 >    数据库类型:
 >
->    1. int类型
->    2. double\(5, 2\) 小数类型, 共五位, 小数点后保留两位.
->    3. date 日期类型,只包含年月日 yyyy-MM-dd
->    4. datetime 年月日时分秒 yyyy-MM-dd HH:mm:ss
->    5. timestamp 时间戳,年月日时分秒 yyyy-MM-dd HH:mm:ss
+>     1. int类型
 >
->       如果将来不给这个字段赋值或者赋值为null, 则默认使用当前系统时间自动赋值.
+>     2. double(5, 2) 小数类型, 共五位, 小数点后保留两位.
 >
->       1. varchar\(20\) 字符串类型,最大20个字符
+>     3. date 日期类型,只包含年月日 yyyy-MM-dd
+>
+>     4. datetime 年月日时分秒 yyyy-MM-dd HH:mm:ss
+>
+>     5. timestamp 时间戳,年月日时分秒 yyyy-MM-dd HH:mm:ss
+>
+>        如果将来不给这个字段赋值或者赋值为null, 则默认使用当前系统时间自动赋值.
+>
+>    	6. varchar(20) 字符串类型,最大20个字符
 >
 > ```sql
 > //创建表
 > create table student(
->     id int,
->     name varchar(32),
->     age int,
->     score double(4,1),
->     birthday date,
->     insert_time timestamp
+> 	id int,
+> 	name varchar(32),
+> 	age int,
+> 	score double(4,1),
+> 	birthday date,
+> 	insert_time timestamp
 > );
 > //复制表
 > create table 表名 like 被复制表名;
 > ```
 >
-> 1. R\(Retrieve\): 查询
+> 1. R(Retrieve): 查询
+>
 >    * 查询所有表名称: show tables;
->    * 查询表结构: desc table\_name;
-> 2. U\(Update\): 修改
+>    * 查询表结构: desc table_name;
+> 2. U(Update): 修改
+>
 >    * 修改表名:             alter table 表名 rename to 新表名;
 >    * 修改表的字符集:  alter table 表名 character set utf8;
 >    * 添加一列:             alter table 表名 add 列名 数据类型;
 >    * 修改列名称,类型: alter table 表名 change 列名 新列名 新数据类型;
 >    * 修改类型:             alter table 表名 modify 列名 新数据类型;
 >    * 删除列:                 alter table 表名 drop 列名;
-> 3. D\(Delete\): 删除
+> 3. D(Delete): 删除
+>
 >    * drop table if exists 表名;
 
 ## DML: 增删改表中的数据
@@ -125,24 +143,25 @@
 
 1. 语法
 
-   ```text
+   ```
    select 
-       字段列表
+   	字段列表
    from
-       表名列表
+   	表名列表
    where
-       条件列表
+   	条件列表
    group by
-       分组字段
+   	分组字段
    having
-       分组之后的条件
+   	分组之后的条件
    order by
-       排序字段
+   	排序字段
    limit
-       分页
+   	分页
    ```
 
-   1. 基础查询
+   2. 基础查询
+
       * 多个字段的查询
 
         ```sql
@@ -172,11 +191,13 @@
         -- AS 可以省略
         ```
 
-2. 条件查询
+3. 条件查询
+
    1. where子句后跟条件
+
    2. 运算符
 
-      ```text
+      ```
       > < <= >= = <>
       BETWEEN...AND
       IN(集合)
@@ -207,7 +228,7 @@
       SELECT * FROM student WHERE english = NULL; -- 错误
       SELECT * FROM student WHERE english IS NULL;
       SELECT * FROM student WHERE english IS NOT NULL;
-
+      
       -- 查询姓马的人
       SELECT * FROM student WHERE `name` LIKE '马%';
       -- 第二个字是化的人
@@ -218,3 +239,4 @@
       SELECT * FROM student WHERE `name` LIKE "%马%";
       ```
 
+      
