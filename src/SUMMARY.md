@@ -1,9 +1,9 @@
 # Summary
 - [Optional Note](README.md)
 - [MySQL](MySQL.md)
-    - [MySQL基础](MySQL/MySQL基础.md)
-    - [MySQL约束](MySQL/MySQL约束.md)
-    - [MySQL多表&事务](MySQL/MySQL多表&事务.md)
+    - [MySQL基础](MySQL/1-MySQL基础.md)
+    - [MySQL约束](MySQL/2-MySQL约束.md)
+    - [MySQL多表&事务](MySQL/3-MySQL多表&事务.md)
 - [JDBC](JDBC.md)
     - [JDBC连接池&JDBCTemplate](JDBC/JDBC连接池&JDBCTemplate.md)
 - [MyBatis](MyBatis.md)

@@ -160,36 +160,36 @@
    	分页
    ```
 
-   2. 基础查询
+2. 基础查询
 
-      * 多个字段的查询
+   * 多个字段的查询
 
-        ```sql
-        select 字段1, 字段2... from 表名;
-        ```
+      ```sql
+      select 字段1, 字段2... from 表名;
+      ```
 
-      * 去除重复
+   * 去除重复
 
-        ```sql
-        SELECT DISTINCT 字段名 FROM 表名;
-        ```
+      ```sql
+      SELECT DISTINCT 字段名 FROM 表名;
+      ```
 
-      * 计算列
+   * 计算列
 
-        ```sql
-        -- 计算math 和English分数之和
-        SELECT `name`, english, math+english FROM student;
-        -- 如果有null参数的运算, 计算结果都为null,要用IFNULL设置默认值
-        SELECT `name`, math, english, math+IFNULL(english,0) FROM student;
-        ```
+      ```sql
+      -- 计算math 和English分数之和
+      SELECT `name`, english, math+english FROM student;
+      -- 如果有null参数的运算, 计算结果都为null,要用IFNULL设置默认值
+      SELECT `name`, math, english, math+IFNULL(english,0) FROM student;
+      ```
 
-      * 起别名
+   * 起别名
 
-        ```sql
-        SELECT `name`, math, english, math+IFNULL(english,0) as 总分 FROM student;
-        SELECT `name` 名字, math 数学, english 英语, math+IFNULL(english,0) 总分 FROM student;
-        -- AS 可以省略
-        ```
+      ```sql
+      SELECT `name`, math, english, math+IFNULL(english,0) as 总分 FROM student;
+      SELECT `name` 名字, math 数学, english 英语, math+IFNULL(english,0) 总分 FROM student;
+      -- AS 可以省略
+      ```
 
 3. 条件查询
 

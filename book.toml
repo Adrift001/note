@@ -1,6 +1,6 @@
 [book]
 authors = ["Optional"]
-language = "zh-cn"
+language = "zh-CN"
 multilingual = false
 src = "src"
 title = "Optional Note"
