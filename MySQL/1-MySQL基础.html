@@ -1,0 +1,458 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MySQL基础 - Optional Note</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Optional Note</a></li><li class="chapter-item expanded "><a href="../MySQL.html"><strong aria-hidden="true">2.</strong> MySQL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../MySQL/1-MySQL基础.html" class="active"><strong aria-hidden="true">2.1.</strong> MySQL基础</a></li><li class="chapter-item expanded "><a href="../MySQL/2-MySQL约束.html"><strong aria-hidden="true">2.2.</strong> MySQL约束</a></li><li class="chapter-item expanded "><a href="../MySQL/3-MySQL多表&事务.html"><strong aria-hidden="true">2.3.</strong> MySQL多表&amp;事务</a></li></ol></li><li class="chapter-item expanded "><a href="../JDBC.html"><strong aria-hidden="true">3.</strong> JDBC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../JDBC/JDBC连接池&JDBCTemplate.html"><strong aria-hidden="true">3.1.</strong> JDBC连接池&amp;JDBCTemplate</a></li></ol></li><li class="chapter-item expanded "><a href="../MyBatis.html"><strong aria-hidden="true">4.</strong> MyBatis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../MyBatis/1-MyBatis入门.html"><strong aria-hidden="true">4.1.</strong> MyBatis入门.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/2-自定义MyBatis.html"><strong aria-hidden="true">4.2.</strong> 自定义MyBatis.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/3-MyBatis-CRUD.html"><strong aria-hidden="true">4.3.</strong> MyBatis-CRUD.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/4-MyBatis-Dao开发.html"><strong aria-hidden="true">4.4.</strong> MyBatis-Dao开发.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/5-MyBatis连接池及事务.html"><strong aria-hidden="true">4.5.</strong> MyBatis连接池及事务.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/6-动态SQL.html"><strong aria-hidden="true">4.6.</strong> 动态SQL.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/7-MyBatis多表操作.html"><strong aria-hidden="true">4.7.</strong> MyBatis多表操作.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Optional Note</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="sql"><a class="header" href="#sql">SQL</a></h1>
+<ol>
+<li>什么是SQL</li>
+</ol>
+<blockquote>
+<p>结构化查询语言</p>
+</blockquote>
+<ol start="2">
+<li>通用语法</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>单行或多行, 以分号结尾.</p>
+</li>
+<li>
+<p>用空格和缩进增强可读性</p>
+</li>
+<li>
+<p>不区分大小写, 关键字建议用大写.</p>
+</li>
+<li>
+<p>三种注释</p>
+<pre><code class="language-sql ignore">-- 单行注释
+# 单行注释
+/* */多行注释
+</code></pre>
+</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li>SQL分类</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>DDL(Data definition Language) 数据定义语言, 定义数据库对象. 例如: 数据库, 表, 列等. 关键字: create,  drop, alter等.</p>
+</li>
+<li>
+<p>DML(Data Manipulation Language) 桑菊操作语言 用来对数据库中的表的数据进行增删改, 关键字: insert, delete, update等.</p>
+</li>
+<li>
+<p>DQL(Data Query Language)数据查询语言 用来查询数据库中表的记录. 关键字: select, where等.</p>
+</li>
+<li>
+<p>DCL(Data Control Language)数据控制语言.用来定义数据库的访问级别以及创建用户. 关键字: grant, revoke等.</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="ddl-操作数据库-表"><a class="header" href="#ddl-操作数据库-表">DDL: 操作数据库, 表</a></h2>
+<ol>
+<li>操作数据库: CRUD</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>C(Create): 创建</p>
+<p>create database if not exists db character set gbk;</p>
+</li>
+<li>
+<p>R(Retrieve): 查询</p>
+<ul>
+<li>查询所有数据库名称: show databases;</li>
+<li>查询创建数据库语句: show create database mysql;</li>
+</ul>
+</li>
+<li>
+<p>U(Update): 修改</p>
+<ul>
+<li>修改数据库字符集: alter database db_name character set utf8;</li>
+</ul>
+</li>
+<li>
+<p>D(Delete): 删除</p>
+<ul>
+<li>删除数据库: drop database if exists db_name;</li>
+</ul>
+</li>
+<li>
+<p>使用数据库</p>
+<ul>
+<li>查询当前数据库: select database();</li>
+<li>使用数据库: use db_name;</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>操作表</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>C(Create): 创建</p>
+<p>create table 表名(</p>
+<p>​	列名1 数据类型1,</p>
+<p>​	列名2 数据类型2</p>
+<p>​	...</p>
+<p>​	列名n 数据类型n</p>
+<p>);</p>
+<p>数据库类型:</p>
+<ol>
+<li>
+<p>int类型</p>
+</li>
+<li>
+<p>double(5, 2) 小数类型, 共五位, 小数点后保留两位.</p>
+</li>
+<li>
+<p>date 日期类型,只包含年月日 yyyy-MM-dd</p>
+</li>
+<li>
+<p>datetime 年月日时分秒 yyyy-MM-dd HH:mm:ss</p>
+</li>
+<li>
+<p>timestamp 时间戳,年月日时分秒 yyyy-MM-dd HH:mm:ss</p>
+<p>如果将来不给这个字段赋值或者赋值为null, 则默认使用当前系统时间自动赋值.</p>
+</li>
+<li>
+<p>varchar(20) 字符串类型,最大20个字符</p>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code class="language-sql ignore">//创建表
+create table student(
+	id int,
+	name varchar(32),
+	age int,
+	score double(4,1),
+	birthday date,
+	insert_time timestamp
+);
+//复制表
+create table 表名 like 被复制表名;
+</code></pre>
+<ol>
+<li>
+<p>R(Retrieve): 查询</p>
+<ul>
+<li>查询所有表名称: show tables;</li>
+<li>查询表结构: desc table_name;</li>
+</ul>
+</li>
+<li>
+<p>U(Update): 修改</p>
+<ul>
+<li>修改表名:             alter table 表名 rename to 新表名;</li>
+<li>修改表的字符集:  alter table 表名 character set utf8;</li>
+<li>添加一列:             alter table 表名 add 列名 数据类型;</li>
+<li>修改列名称,类型: alter table 表名 change 列名 新列名 新数据类型;</li>
+<li>修改类型:             alter table 表名 modify 列名 新数据类型;</li>
+<li>删除列:                 alter table 表名 drop 列名;</li>
+</ul>
+</li>
+<li>
+<p>D(Delete): 删除</p>
+<ul>
+<li>drop table if exists 表名;</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h2 id="dml-增删改表中的数据"><a class="header" href="#dml-增删改表中的数据">DML: 增删改表中的数据</a></h2>
+<ol>
+<li>
+<p>添加数据</p>
+<pre><code class="language-sql ignore">insert into 表名(列名1, 列名2,...) values (值1, 值2, ...);
+</code></pre>
+</li>
+<li>
+<p>删除数据</p>
+<pre><code class="language-sql ignore">delete from 表名 [where 条件];
+TRUNCATE TABLE 表名; //删除表, 并创建一个一模一样的表
+</code></pre>
+</li>
+<li>
+<p>修改数据</p>
+<pre><code class="language-sql ignore">update 表名 set 列名1=值1, 列名2=值2,...[where 条件];
+</code></pre>
+</li>
+</ol>
+<h2 id="dql-查询表中的记录"><a class="header" href="#dql-查询表中的记录">DQL: 查询表中的记录</a></h2>
+<ol>
+<li>
+<p>语法</p>
+<pre><code class="language-sql ignore">select 
+	字段列表
+from
+	表名列表
+where
+	条件列表
+group by
+	分组字段
+having
+	分组之后的条件
+order by
+	排序字段
+limit
+	分页
+</code></pre>
+</li>
+<li>
+<p>基础查询</p>
+<ul>
+<li>
+<p>多个字段的查询</p>
+<pre><code class="language-sql">select 字段1, 字段2... from 表名;
+</code></pre>
+</li>
+<li>
+<p>去除重复</p>
+<pre><code class="language-sql">SELECT DISTINCT 字段名 FROM 表名;
+</code></pre>
+</li>
+<li>
+<p>计算列</p>
+<pre><code class="language-sql">-- 计算math 和English分数之和
+SELECT `name`, english, math+english FROM student;
+-- 如果有null参数的运算, 计算结果都为null,要用IFNULL设置默认值
+SELECT `name`, math, english, math+IFNULL(english,0) FROM student;
+</code></pre>
+</li>
+<li>
+<p>起别名</p>
+<pre><code class="language-sql">SELECT `name`, math, english, math+IFNULL(english,0) as 总分 FROM student;
+SELECT `name` 名字, math 数学, english 英语, math+IFNULL(english,0) 总分 FROM student;
+-- AS 可以省略
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>条件查询</p>
+<ol>
+<li>
+<p>where子句后跟条件</p>
+</li>
+<li>
+<p>运算符</p>
+<pre><code class="language-sql ignore">&gt; &lt; &lt;= &gt;= = &lt;&gt;
+BETWEEN...AND
+IN(集合)
+LIKE _单个任意字符 %多个任意字符
+IS NULL
+AND 或 &amp;&amp;
+OR 或 ||
+NOT 或 !
+</code></pre>
+<pre><code class="language-sql ignore">-- 查询年龄大于20岁
+SELECT * FROM student WHERE age &gt; 20;
+SELECT * FROM student WHERE age &gt;= 20;
+-- 查询年龄等于20岁
+SELECT * FROM student WHERE age = 20;
+-- 查询年龄不等于20岁
+SELECT * FROM student WHERE age != 20;
+SELECT * FROM student WHERE age &lt;&gt; 20;
+-- 查询大于等于20, 小于等于30
+SELECT * FROM student WHERE age &gt;= 20 &amp;&amp; age &lt;= 30;
+SELECT * FROM student WHERE age &gt;= 20 AND age &lt;= 30;
+SELECT * FROM student WHERE age BETWEEN 20 AND 30;
+-- 查询年龄22岁, 18岁, 25岁的信息
+SELECT * FROM student WHERE age = 22 OR age = 18 OR age = 25;
+SELECT * FROM student WHERE age IN(22, 18, 25);
+-- 查询英语成绩是null的记录, null不能使用=或者!=判断
+SELECT * FROM student WHERE english = NULL; -- 错误
+SELECT * FROM student WHERE english IS NULL;
+SELECT * FROM student WHERE english IS NOT NULL;
+
+-- 查询姓马的人
+SELECT * FROM student WHERE `name` LIKE '马%';
+-- 第二个字是化的人
+SELECT * FROM student WHERE `name` LIKE &quot;_化%&quot;;
+-- 姓名是三个字的人
+SELECT * FROM student WHERE `name` LIKE &quot;___&quot;;
+-- 查询姓名中包含马的人
+SELECT * FROM student WHERE `name` LIKE &quot;%马%&quot;;
+</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../MySQL.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../MySQL/2-MySQL约束.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../MySQL.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../MySQL/2-MySQL约束.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

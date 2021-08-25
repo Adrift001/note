@@ -1,0 +1,694 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MySQL多表&amp;事务 - Optional Note</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Optional Note</a></li><li class="chapter-item expanded "><a href="../MySQL.html"><strong aria-hidden="true">2.</strong> MySQL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../MySQL/1-MySQL基础.html"><strong aria-hidden="true">2.1.</strong> MySQL基础</a></li><li class="chapter-item expanded "><a href="../MySQL/2-MySQL约束.html"><strong aria-hidden="true">2.2.</strong> MySQL约束</a></li><li class="chapter-item expanded "><a href="../MySQL/3-MySQL多表&事务.html" class="active"><strong aria-hidden="true">2.3.</strong> MySQL多表&amp;事务</a></li></ol></li><li class="chapter-item expanded "><a href="../JDBC.html"><strong aria-hidden="true">3.</strong> JDBC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../JDBC/JDBC连接池&JDBCTemplate.html"><strong aria-hidden="true">3.1.</strong> JDBC连接池&amp;JDBCTemplate</a></li></ol></li><li class="chapter-item expanded "><a href="../MyBatis.html"><strong aria-hidden="true">4.</strong> MyBatis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../MyBatis/1-MyBatis入门.html"><strong aria-hidden="true">4.1.</strong> MyBatis入门.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/2-自定义MyBatis.html"><strong aria-hidden="true">4.2.</strong> 自定义MyBatis.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/3-MyBatis-CRUD.html"><strong aria-hidden="true">4.3.</strong> MyBatis-CRUD.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/4-MyBatis-Dao开发.html"><strong aria-hidden="true">4.4.</strong> MyBatis-Dao开发.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/5-MyBatis连接池及事务.html"><strong aria-hidden="true">4.5.</strong> MyBatis连接池及事务.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/6-动态SQL.html"><strong aria-hidden="true">4.6.</strong> 动态SQL.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/7-MyBatis多表操作.html"><strong aria-hidden="true">4.7.</strong> MyBatis多表操作.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Optional Note</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="目录"><a class="header" href="#目录">目录</a></h1>
+<ol>
+<li>多表查询</li>
+<li>事务</li>
+<li>DCL</li>
+</ol>
+<h2 id="多表查询"><a class="header" href="#多表查询">多表查询</a></h2>
+<ul>
+<li>
+<p>查询语法</p>
+<pre><code class="language-sql">select
+	列名列表
+from
+	表名列表
+where ...
+</code></pre>
+<p>操作数据</p>
+<pre><code class="language-sql">-- 部门表
+CREATE TABLE dept (
+  id INT PRIMARY KEY PRIMARY KEY, -- 部门id
+  dname VARCHAR(50), -- 部门名称
+  loc VARCHAR(50) -- 部门所在地
+);
+
+-- 添加4个部门
+INSERT INTO dept(id,dname,loc) VALUES 
+(10,'教研部','北京'),
+(20,'学工部','上海'),
+(30,'销售部','广州'),
+(40,'财务部','深圳');
+
+
+
+-- 职务表，职务名称，职务描述
+CREATE TABLE job (
+  id INT PRIMARY KEY,
+  jname VARCHAR(20),
+  description VARCHAR(50)
+);
+
+-- 添加4个职务
+INSERT INTO job (id, jname, description) VALUES
+(1, '董事长', '管理整个公司，接单'),
+(2, '经理', '管理部门员工'),
+(3, '销售员', '向客人推销产品'),
+(4, '文员', '使用办公软件');
+
+
+
+-- 员工表
+CREATE TABLE emp (
+  id INT PRIMARY KEY, -- 员工id
+  ename VARCHAR(50), -- 员工姓名
+  job_id INT, -- 职务id
+  mgr INT , -- 上级领导
+  joindate DATE, -- 入职日期
+  salary DECIMAL(7,2), -- 工资
+  bonus DECIMAL(7,2), -- 奖金
+  dept_id INT, -- 所在部门编号
+  CONSTRAINT emp_jobid_ref_job_id_fk FOREIGN KEY (job_id) REFERENCES job (id),
+  CONSTRAINT emp_deptid_ref_dept_id_fk FOREIGN KEY (dept_id) REFERENCES dept (id)
+);
+
+-- 添加员工
+INSERT INTO emp(id,ename,job_id,mgr,joindate,salary,bonus,dept_id) VALUES 
+(1001,'孙悟空',4,1004,'2000-12-17','8000.00',NULL,20),
+(1002,'卢俊义',3,1006,'2001-02-20','16000.00','3000.00',30),
+(1003,'林冲',3,1006,'2001-02-22','12500.00','5000.00',30),
+(1004,'唐僧',2,1009,'2001-04-02','29750.00',NULL,20),
+(1005,'李逵',4,1006,'2001-09-28','12500.00','14000.00',30),
+(1006,'宋江',2,1009,'2001-05-01','28500.00',NULL,30),
+(1007,'刘备',2,1009,'2001-09-01','24500.00',NULL,10),
+(1008,'猪八戒',4,1004,'2007-04-19','30000.00',NULL,20),
+(1009,'罗贯中',1,NULL,'2001-11-17','50000.00',NULL,10),
+(1010,'吴用',3,1006,'2001-09-08','15000.00','0.00',30),
+(1011,'沙僧',4,1004,'2007-05-23','11000.00',NULL,20),
+(1012,'李逵',4,1006,'2001-12-03','9500.00',NULL,30),
+(1013,'小白龙',4,1004,'2001-12-03','30000.00',NULL,20),
+(1014,'关羽',4,1007,'2002-01-23','13000.00',NULL,10);
+
+
+
+-- 工资等级表
+CREATE TABLE salarygrade (
+  grade INT PRIMARY KEY,   -- 级别
+  losalary INT,  -- 最低工资
+  hisalary INT -- 最高工资
+);
+
+-- 添加5个工资等级
+INSERT INTO salarygrade(grade,losalary,hisalary) VALUES 
+(1,7000,12000),
+(2,12010,14000),
+(3,14010,20000),
+(4,20010,30000),
+(5,30010,99990);
+
+-- 需求：
+
+-- 1.查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述
+
+-- 2.查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置
+   
+-- 3.查询员工姓名，工资，工资等级
+
+-- 4.查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级
+
+-- 5.查询出部门编号、部门名称、部门位置、部门人数
+ 
+-- 6.查询所有员工的姓名及其直接上级的姓名,没有领导的员工也需要查询
+</code></pre>
+</li>
+<li>
+<p>笛卡尔积</p>
+<ul>
+<li>有两个集合A,B, 取这来能个集合的所有组成情况</li>
+<li>要完成多表查询,需要消除无用的数据.</li>
+</ul>
+</li>
+<li>
+<p>多表查询分类:</p>
+<ol>
+<li>
+<p>内连接查询</p>
+<ol>
+<li>
+<p>隐式内连接(用where清除无用数据)</p>
+<pre><code class="language-sql">-- 查询所有员工信息和对应部门信息
+SELECT * FROM emp, dept WHERE emp.dept_id = dept.id;
+
+-- 查询员工表姓名, 工资 以及部门名称
+SELECT emp.ename, emp.salary, dept.dname FROM emp, dept WHERE emp.dept_id = dept.id;
+SELECT t1.ename, t1.salary, t2.dname FROM emp t1, dept t2 WHERE t1.dept_id = t2.id;
+</code></pre>
+</li>
+<li>
+<p>显式内连接</p>
+<ul>
+<li>
+<p>语法</p>
+<pre><code class="language-sql">select 字段列表 from 表名1 inner join 表名2 on 条件
+</code></pre>
+</li>
+<li>
+<p>例如:</p>
+<pre><code class="language-sql">SELECT * FROM emp INNER JOIN dept on emp.dept_id = dept.id;
+SELECT * FROM emp JOIN dept on emp.dept_id = dept.id;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>内连接查询</p>
+<ol>
+<li>从哪些表中查询数据</li>
+<li>条件是什么</li>
+<li>查询哪些字段</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>外连接查询</p>
+<ol>
+<li>
+<p>左外连接</p>
+<ul>
+<li>
+<p>语法</p>
+<pre><code class="language-sql">select 字段列表 from 表1 left outer join 表2 on 条件
+</code></pre>
+</li>
+<li>
+<p>查询的是左边表所有记录, 以及其交集部分.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>右外连接</p>
+<ul>
+<li>
+<p>语法</p>
+<pre><code class="language-sql">select 字段列表 from 表1 right outer join 表2 on 条件
+</code></pre>
+</li>
+<li>
+<p>查询的是右边表所有记录, 以及其交集部分.</p>
+</li>
+</ul>
+<blockquote>
+<p>表名换个位置,左外就变成了右外.</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<p>子查询</p>
+<ul>
+<li>
+<p>概念: 查询中嵌套查询, 称嵌套查询为子查询.</p>
+<pre><code class="language-sql">-- 查询工资最高的员工信息
+-- 1. 查询最高的工资是多少
+SELECT MAX(salary) FROM emp;
+-- 2. 查询员工信息, 并且工资是9000
+SELECT * FROM emp WHERE emp.salary = 50000;
+-- 综合
+SELECT * FROM emp WHERE emp.salary = (SELECT MAX(salary) FROM emp);
+</code></pre>
+</li>
+<li>
+<p>子查询的不同情况</p>
+<ol>
+<li>
+<p>子查询结果是单行单列</p>
+<ul>
+<li>
+<p>子查询可以作为条件使用运算符判断. (&gt; &lt; =等等)</p>
+<pre><code class="language-sql">-- 查询员工工资小于平均工资的人
+SELECT * from emp WHERE emp.salary &lt; (SELECT AVG(salary) FROM emp);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>子查询结果是多行单列</p>
+<ul>
+<li>
+<p>子查询可以作为条件, 使用运算符IN</p>
+<pre><code class="language-sql">-- 查询财务部和销售部所有员工信息
+SELECT id FROM dept WHERE dname = &quot;财务部&quot; OR dname = &quot;市场部&quot;;
+SELECT * FROM emp WHERE dept_id = 40;
+
+SELECT * FROM emp WHERE dept_id IN (SELECT id FROM dept WHERE dname = &quot;财务部&quot; OR dname = &quot;销售部&quot;);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>子查询结果是多行多列, 子查询可以作为一个虚拟表</p>
+<ul>
+<li>
+<p>子查询</p>
+<pre><code class="language-sql  ignore">-- 查询员工入职日期是2011-11-11之后的员工信息和部门信息
+SELECT * FROM emp WHERE joindate &gt; &quot;2001-05-01&quot;;
+SELECT * FROM dept t1, (SELECT * FROM emp WHERE joindate &gt; &quot;2001-05-01&quot;) t2 WHERE t1.id = t2.dept_id;
+</code></pre>
+</li>
+<li>
+<p>普通查询</p>
+<pre><code class="language-sql">-- 普通内连接
+SELECT * FROM emp t1, dept t2 WHERE t1.dept_id = t2.id AND t1.joindate &gt; &quot;2001-05-01&quot;;
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>多表查询练习</p>
+<pre><code class="language-sql">-- 需求：
+-- 1.查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述
+SELECT
+  t1.id, t1.ename, t1.salary, t2.jname, t2.description
+FROM
+  emp t1, job t2
+WHERE
+  t1.job_id = t2.id;
+-- 2.查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置
+SELECT
+  t1.id, t1.ename, t1.salary, t2.jname, t2.description, t3.dname, t3.loc
+FROM
+  emp t1, job t2, dept t3
+WHERE
+  t1.job_id = t2.id AND t1.dept_id = t3.id;
+-- 3.查询员工姓名，工资，工资等级
+SELECT 
+  t1.ename,
+  t1.salary, 
+  t2.*
+FROM 
+  emp t1, salarygrade t2
+WHERE
+  t1.salary BETWEEN t2.losalary AND t2.hisalary;
+-- 4.查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级
+SELECT
+  t1.id, t1.ename, t1.salary, t2.jname, t2.description, t3.dname, t3.loc, t4.*
+FROM
+  emp t1, job t2, dept t3, salarygrade t4
+WHERE
+  t1.job_id = t2.id AND t1.dept_id = t3.id AND (t1.salary BETWEEN t4.losalary AND t4.hisalary);
+-- 5.查询出部门编号、部门名称、部门位置、部门人数
+SELECT
+  t1.id, t1.dname, t1.loc, t2.total
+FROM dept t1,
+    (SELECT dept_id, COUNT(id) total
+      FROM emp
+      GROUP BY dept_id) t2
+WHERE t1.id = t2.dept_id;
+-- 6.查询所有员工的姓名及其直接上级的姓名,没有领导的员工也需要查询
+  SELECT 
+  t1.ename, t1.mgr, t2.id, t2.ename
+  FROM 
+  emp t1, emp t2
+  WHERE 
+  t1.mgr = t2.id; -- 自关联
+  
+-- 没有领导的员工也需要查询
+SELECT 
+  t1.ename, t1.mgr, t2.id, t2.ename
+  FROM 
+  emp t1
+LEFT JOIN
+  emp t2
+ON 
+  t1.mgr = t2.id; -- 自关联
+</code></pre>
+</li>
+</ul>
+<h2 id="事务"><a class="header" href="#事务">事务</a></h2>
+<ol>
+<li>
+<p>事务的基本介绍 </p>
+<ol>
+<li>
+<p>概念:</p>
+<ul>
+<li>如果一个包含多个步骤的业务操作被事务管理, 要么这些操作同时成功, 或者同时失败.</li>
+</ul>
+</li>
+<li>
+<p>操作</p>
+<ul>
+<li>开启事务 <code>start transaction</code></li>
+<li>回滚: <code>rollback</code></li>
+<li>提交: <code>commit</code></li>
+</ul>
+</li>
+<li>
+<p>例子</p>
+</li>
+</ol>
+<pre><code class="language-sql ignore">CREATE TABLE `account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `balance` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+</code></pre>
+<pre><code class="language-sql ignore">-- 开启事务
+START TRANSACTION;
+UPDATE account SET balance = balance - 500 WHERE name = &quot;张三&quot;;
+UPDATE account SET balance = balance - 500 WHERE name = &quot;李四&quot;;
+-- 如果出错
+ROLLBACK;
+-- 如果没错
+COMMIT;
+</code></pre>
+<ol start="4">
+<li>MySQL数据库中事务默认自动提交</li>
+</ol>
+<ul>
+<li>事务提交的两种方式
+<ul>
+<li>自动提交
+<ul>
+<li>MySQL就是自动提交的</li>
+<li>一条DML(增删改)语句会自动提交一次事务</li>
+</ul>
+</li>
+<li>手动提交:
+<ul>
+<li>Oracle数据库默认是手动提交事务</li>
+<li>需要先开启事务再提交</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>修改事务的默认提交方式
+<ul>
+<li>查看事务的默认提交方式:  <code>SELECT @@autocommit;</code></li>
+<li>修改事务的默认提交方式: <code>set @@autocommit = 1; 1开启自动提交, 0关闭自动提交</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>事务的四大特征</p>
+<ol>
+<li>原子性: 是不可分割的最小单位, 要么同时成功, 要么同时失败.</li>
+<li>持久性: 当事务提交或回滚后, 数据库会持久化的保存数据.</li>
+<li>隔离性: 多个事务之间, 相互独立.</li>
+<li>一致性: 开始和结束之间的状态不会被其他事务看到.</li>
+</ol>
+</li>
+<li>
+<p>事务的隔离级别(了解)</p>
+<ul>
+<li>
+<p>概念: 多个事务是隔离的, 相互独立的. 但是如果多个事务操作同一批数据, 则会引发一些问题,设置不同的隔离级别就可以解决这些问题.</p>
+</li>
+<li>
+<p>存在的问题:</p>
+<ol>
+<li>脏读: 一个事务读取到另一个事务没有提交的数据</li>
+<li>不可重复读(虚读): 在同一个事务中, 两次读取的数据不一样.</li>
+<li>幻读: 数据表中所有的记录, 另一个事物添加了一条数据, 则第一个事务查询不到自己的修改.</li>
+</ol>
+</li>
+<li>
+<p>隔离级别:</p>
+<ol>
+<li>
+<p>read umcommited: 读未提交</p>
+<p>产生的问题: 脏读, 不可重复读, 幻读</p>
+</li>
+<li>
+<p>read commited: 读已提交</p>
+<p>产生的问题: 不可重复读, 幻读</p>
+</li>
+<li>
+<p>repeatable read: 可重复读</p>
+<p>产生的问题: 幻读</p>
+</li>
+<li>
+<p>serializable: 串行化</p>
+<p>可以解决所有问题</p>
+</li>
+</ol>
+<blockquote>
+<p>注意: 隔离级别从小到大安全性越来越高, 但是性能越来越低</p>
+<p>数据库查询隔离级别: <code>select @@transaction_isolation;</code></p>
+<p>设置数据库隔离级别: <code>SET transaction_isolation = value;</code></p>
+</blockquote>
+<pre><code class="language-sql ignore"> set global transaction isolation level read uncommitted;
+ start transaction;
+ -- 转账操作
+ update account set balance = balance - 500 where id = 1;
+ update account set balance = balance + 500 where id = 2;
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="dcl"><a class="header" href="#dcl">DCL</a></h2>
+<ul>
+<li>
+<p>SQL分类</p>
+<ol>
+<li>DDL: 操作数据库和表</li>
+<li>DML: 增删改表中数据</li>
+<li>DQL: 查询表中的数据</li>
+<li>DCL: 管理用户, 授权</li>
+</ol>
+</li>
+<li>
+<p>DBA: 数据库管理员</p>
+</li>
+<li>
+<p>DCL: 管理用户, 授权</p>
+<ol>
+<li>
+<p>管理用户</p>
+<pre><code class="language-sql">-- 增加用户
+CREATE USER 'tomcat'@'localhost' IDENTIFIED BY 'root';
+-- 修改密码
+UPDATE USER SET PASSWORD = PASSWORD('新密码') WHERE USER = '用户名';
+UPDATE USER SET PASSWORD = PASSWORD('abc') WHERE USER = 'lisi';
+SET PASSWORD FOR '用户名'@'主机名' = PASSWORD('新密码');
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('123');
+-- 删除用户
+DROP USER '用户名'@'主机名';
+-- 查询用户
+-- 1. 切换到mysql数据库
+USE myql;
+-- 2. 查询user表
+SELECT * FROM USER;
+* 通配符： % 表示可以在任意主机使用用户登录数据库
+			权限管理
+			1. 查询权限：
+				-- 查询权限
+				SHOW GRANTS FOR '用户名'@'主机名';
+				SHOW GRANTS FOR 'lisi'@'%';
+
+			2. 授予权限：
+				-- 授予权限
+				grant 权限列表 on 数据库名.表名 to '用户名'@'主机名';
+				-- 给张三用户授予所有权限，在任意数据库任意表上
+				
+				GRANT ALL ON *.* TO 'zhangsan'@'localhost';
+			3. 撤销权限：
+				-- 撤销权限：
+				revoke 权限列表 on 数据库名.表名 from '用户名'@'主机名';
+				REVOKE UPDATE ON db3.`account` FROM 'lisi'@'%';
+</code></pre>
+<ul>
+<li>
+<p>MySQL中忘记密码:</p>
+<pre><code class="language-sql">1. cmd -- &gt; net stop mysql 停止mysql服务
+* 需要管理员运行该cmd
+2. 使用无验证方式启动mysql服务： mysqld --skip-grant-tables
+3. 打开新的cmd窗口,直接输入mysql命令，敲回车。就可以登录成功
+4. use mysql;
+5. update user set password = password('你的新密码') where user = 'root';
+6. 关闭两个窗口
+7. 打开任务管理器，手动结束mysqld.exe 的进程
+8. 启动mysql服务
+9. 使用新密码登录。
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../MySQL/2-MySQL约束.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../JDBC.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../MySQL/2-MySQL约束.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../JDBC.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

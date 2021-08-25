@@ -1,0 +1,449 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MyBatis入门.md - Optional Note</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Optional Note</a></li><li class="chapter-item expanded "><a href="../MySQL.html"><strong aria-hidden="true">2.</strong> MySQL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../MySQL/1-MySQL基础.html"><strong aria-hidden="true">2.1.</strong> MySQL基础</a></li><li class="chapter-item expanded "><a href="../MySQL/2-MySQL约束.html"><strong aria-hidden="true">2.2.</strong> MySQL约束</a></li><li class="chapter-item expanded "><a href="../MySQL/3-MySQL多表&事务.html"><strong aria-hidden="true">2.3.</strong> MySQL多表&amp;事务</a></li></ol></li><li class="chapter-item expanded "><a href="../JDBC.html"><strong aria-hidden="true">3.</strong> JDBC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../JDBC/JDBC连接池&JDBCTemplate.html"><strong aria-hidden="true">3.1.</strong> JDBC连接池&amp;JDBCTemplate</a></li></ol></li><li class="chapter-item expanded "><a href="../MyBatis.html"><strong aria-hidden="true">4.</strong> MyBatis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../MyBatis/1-MyBatis入门.html" class="active"><strong aria-hidden="true">4.1.</strong> MyBatis入门.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/2-自定义MyBatis.html"><strong aria-hidden="true">4.2.</strong> 自定义MyBatis.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/3-MyBatis-CRUD.html"><strong aria-hidden="true">4.3.</strong> MyBatis-CRUD.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/4-MyBatis-Dao开发.html"><strong aria-hidden="true">4.4.</strong> MyBatis-Dao开发.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/5-MyBatis连接池及事务.html"><strong aria-hidden="true">4.5.</strong> MyBatis连接池及事务.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/6-动态SQL.html"><strong aria-hidden="true">4.6.</strong> 动态SQL.md</a></li><li class="chapter-item expanded "><a href="../MyBatis/7-MyBatis多表操作.html"><strong aria-hidden="true">4.7.</strong> MyBatis多表操作.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Optional Note</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <ol>
+<li>创建maven工程并导入坐标</li>
+<li>创建实体类和dao接口</li>
+<li>创建mybatis的主配置文件<code>SqlMapConfig.xml</code></li>
+<li>创建映射配置文件<code>UserDao.xml</code></li>
+</ol>
+<pre><code>.
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── swifter
+│   │           ├── dao
+│   │           │   └── UserDao.java
+│   │           └── domain
+│   │               └── User.java
+│   └── resources
+│       ├── SqlMapConfig.xml
+│       ├── com
+│       │   └── swifter
+│       │       └── dao
+│       │           └── UserDao.xml
+│       └── log4j.properties
+└── test
+    └── java
+        └── com
+            └── swifter
+                └── test
+                    └── MybatisTest.java
+</code></pre>
+<pre><code>SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) NOT NULL COMMENT '用户名称',
+  `birthday` datetime DEFAULT NULL COMMENT '生日',
+  `sex` char(1) DEFAULT NULL COMMENT '性别',
+  `address` varchar(256) DEFAULT NULL COMMENT '地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES (41, '老王', '2018-02-27 17:47:08', '男', '北京');
+INSERT INTO `user` VALUES (42, '小二王', '2018-03-02 15:09:37', '女', '北京金燕龙');
+INSERT INTO `user` VALUES (43, '小二王', '2018-03-04 11:34:34', '女', '北京金燕龙');
+INSERT INTO `user` VALUES (45, '传智播客', '2018-03-04 12:04:06', '男', '北京金燕龙');
+INSERT INTO `user` VALUES (46, '老王', '2018-03-07 17:37:26', '男', '北京');
+INSERT INTO `user` VALUES (48, '小马宝莉', '2018-03-08 11:44:00', '女', '北京修正');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
+</code></pre>
+<ol>
+<li>
+<p>maven坐标</p>
+<pre><code>    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+            &lt;version&gt;3.5.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.6&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;log4j&lt;/groupId&gt;
+            &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+            &lt;version&gt;1.2.12&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.10&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre>
+</li>
+<li>
+<p>创建实体类和dao接口</p>
+<pre><code>package com.swifter.domain;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @author 黑马程序员
+ * @Company http://www.ithiema.com
+ */
+public class User implements Serializable{
+
+    private Integer id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, username='&quot; + username + '\'' +
+                &quot;, birthday=&quot; + birthday +
+                &quot;, sex='&quot; + sex + '\'' +
+                &quot;, address='&quot; + address + '\'' +
+                '}';
+    }
+}
+</code></pre>
+<pre><code>package com.swifter.dao;
+
+import com.swifter.domain.User;
+
+import java.util.List;
+
+/**
+ * @author 黑马程序员
+ * @Company http://www.ithiema.com
+ *
+ * 用户的持久层接口
+ */
+public interface IUserDao {
+
+    /**
+     * 查询所有操作
+     * @return
+     */
+    List&lt;User&gt; findAll();
+}
+</code></pre>
+</li>
+<li>
+<p>创建SqlMapConfig.xml文件</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE configuration
+        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+&lt;!-- mybatis的主配置文件 --&gt;
+&lt;configuration&gt;
+    &lt;!-- 配置环境 --&gt;
+    &lt;environments default=&quot;mysql&quot;&gt;
+        &lt;!-- 配置mysql的环境--&gt;
+        &lt;environment id=&quot;mysql&quot;&gt;
+            &lt;!-- 配置事务的类型--&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
+            &lt;!-- 配置数据源（连接池） --&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;!-- 配置连接数据库的4个基本信息 --&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/eesy?characterEncoding=UTF-8&quot;/&gt;
+                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+                &lt;property name=&quot;password&quot; value=&quot;jingxuetao&quot;/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+
+    &lt;!-- 指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件 --&gt;
+    &lt;mappers&gt;
+        &lt;mapper resource=&quot;com/itheima/dao/IUserDao.xml&quot;/&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;
+</code></pre>
+</li>
+<li>
+<p>创建映射配置文件</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.swifter.dao.IUserDao&quot;&gt;
+		&lt;!--namespace dao接口的全限定类名--&gt;
+    &lt;!--配置查询所有--&gt;
+    &lt;select id=&quot;findAll&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+        select * from user
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+</li>
+<li>
+<p>测试</p>
+<pre><code>package com.swifter;
+
+import com.swifter.dao.IUserDao;
+import com.swifter.domain.User;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import java.io.InputStream;
+import java.util.List;
+
+public class MyBatisTest {
+    public static void main(String[] args) throws Exception {
+        //1. 读取配置文件
+        InputStream in = Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);
+        //2. 创建SQLSessionFactory
+        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        //3. 使用工厂生产SQLSession对象
+        SqlSession session = factory.openSession();
+        //4. 使用SQLSession创建dao接口的代理对象
+        IUserDao userDao = session.getMapper(IUserDao.class);
+        //5.使用代理对象执行方法
+        List&lt;User&gt; all = userDao.findAll();
+        for (User user : all) {
+            System.out.println(user);
+        }
+        //6.释放资源
+        session.close();
+        in.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>注意实现</p>
+<ol>
+<li>创建UserDao.xml 和 UserDao.java时, 名称是为了和之前的知识保持一致,mybatis把持久层操作接口名称和映射文件(Mapper) UserMapper和UserDao 应该只是名称的区别</li>
+<li>在idea中创建目录时和包不一样, 包创建com.swifter.dao是三级目录, 目录创建是一级目录.</li>
+<li>mybatis映射配置文件必须和dao接口包结构相同</li>
+<li>映射配置文件的mapper标签namespace属性取值,必须是dao接口的全限定类名.</li>
+<li>映射配置文件的操作配置,id属性取值必须是dao接口的方法名.</li>
+</ol>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../MyBatis.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../MyBatis/2-自定义MyBatis.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../MyBatis.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../MyBatis/2-自定义MyBatis.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

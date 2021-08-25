@@ -1,0 +1,2407 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Optional Note</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Optional Note</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">2.</strong> MySQL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="MySQL/1-MySQL基础.html"><strong aria-hidden="true">2.1.</strong> MySQL基础</a></li><li class="chapter-item expanded "><a href="MySQL/2-MySQL约束.html"><strong aria-hidden="true">2.2.</strong> MySQL约束</a></li><li class="chapter-item expanded "><a href="MySQL/3-MySQL多表&事务.html"><strong aria-hidden="true">2.3.</strong> MySQL多表&amp;事务</a></li></ol></li><li class="chapter-item expanded "><a href="JDBC.html"><strong aria-hidden="true">3.</strong> JDBC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="JDBC/JDBC连接池&JDBCTemplate.html"><strong aria-hidden="true">3.1.</strong> JDBC连接池&amp;JDBCTemplate</a></li></ol></li><li class="chapter-item expanded "><a href="MyBatis.html"><strong aria-hidden="true">4.</strong> MyBatis</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="MyBatis/1-MyBatis入门.html"><strong aria-hidden="true">4.1.</strong> MyBatis入门.md</a></li><li class="chapter-item expanded "><a href="MyBatis/2-自定义MyBatis.html"><strong aria-hidden="true">4.2.</strong> 自定义MyBatis.md</a></li><li class="chapter-item expanded "><a href="MyBatis/3-MyBatis-CRUD.html"><strong aria-hidden="true">4.3.</strong> MyBatis-CRUD.md</a></li><li class="chapter-item expanded "><a href="MyBatis/4-MyBatis-Dao开发.html"><strong aria-hidden="true">4.4.</strong> MyBatis-Dao开发.md</a></li><li class="chapter-item expanded "><a href="MyBatis/5-MyBatis连接池及事务.html"><strong aria-hidden="true">4.5.</strong> MyBatis连接池及事务.md</a></li><li class="chapter-item expanded "><a href="MyBatis/6-动态SQL.html"><strong aria-hidden="true">4.6.</strong> 动态SQL.md</a></li><li class="chapter-item expanded "><a href="MyBatis/7-MyBatis多表操作.html"><strong aria-hidden="true">4.7.</strong> MyBatis多表操作.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Optional Note</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="optional-note"><a class="header" href="#optional-note">Optional Note</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mysql"><a class="header" href="#mysql">MySQL</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sql"><a class="header" href="#sql">SQL</a></h1>
+<ol>
+<li>什么是SQL</li>
+</ol>
+<blockquote>
+<p>结构化查询语言</p>
+</blockquote>
+<ol start="2">
+<li>通用语法</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>单行或多行, 以分号结尾.</p>
+</li>
+<li>
+<p>用空格和缩进增强可读性</p>
+</li>
+<li>
+<p>不区分大小写, 关键字建议用大写.</p>
+</li>
+<li>
+<p>三种注释</p>
+<pre><code class="language-sql ignore">-- 单行注释
+# 单行注释
+/* */多行注释
+</code></pre>
+</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li>SQL分类</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>DDL(Data definition Language) 数据定义语言, 定义数据库对象. 例如: 数据库, 表, 列等. 关键字: create,  drop, alter等.</p>
+</li>
+<li>
+<p>DML(Data Manipulation Language) 桑菊操作语言 用来对数据库中的表的数据进行增删改, 关键字: insert, delete, update等.</p>
+</li>
+<li>
+<p>DQL(Data Query Language)数据查询语言 用来查询数据库中表的记录. 关键字: select, where等.</p>
+</li>
+<li>
+<p>DCL(Data Control Language)数据控制语言.用来定义数据库的访问级别以及创建用户. 关键字: grant, revoke等.</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="ddl-操作数据库-表"><a class="header" href="#ddl-操作数据库-表">DDL: 操作数据库, 表</a></h2>
+<ol>
+<li>操作数据库: CRUD</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>C(Create): 创建</p>
+<p>create database if not exists db character set gbk;</p>
+</li>
+<li>
+<p>R(Retrieve): 查询</p>
+<ul>
+<li>查询所有数据库名称: show databases;</li>
+<li>查询创建数据库语句: show create database mysql;</li>
+</ul>
+</li>
+<li>
+<p>U(Update): 修改</p>
+<ul>
+<li>修改数据库字符集: alter database db_name character set utf8;</li>
+</ul>
+</li>
+<li>
+<p>D(Delete): 删除</p>
+<ul>
+<li>删除数据库: drop database if exists db_name;</li>
+</ul>
+</li>
+<li>
+<p>使用数据库</p>
+<ul>
+<li>查询当前数据库: select database();</li>
+<li>使用数据库: use db_name;</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>操作表</li>
+</ol>
+<blockquote>
+<ol>
+<li>
+<p>C(Create): 创建</p>
+<p>create table 表名(</p>
+<p>​	列名1 数据类型1,</p>
+<p>​	列名2 数据类型2</p>
+<p>​	...</p>
+<p>​	列名n 数据类型n</p>
+<p>);</p>
+<p>数据库类型:</p>
+<ol>
+<li>
+<p>int类型</p>
+</li>
+<li>
+<p>double(5, 2) 小数类型, 共五位, 小数点后保留两位.</p>
+</li>
+<li>
+<p>date 日期类型,只包含年月日 yyyy-MM-dd</p>
+</li>
+<li>
+<p>datetime 年月日时分秒 yyyy-MM-dd HH:mm:ss</p>
+</li>
+<li>
+<p>timestamp 时间戳,年月日时分秒 yyyy-MM-dd HH:mm:ss</p>
+<p>如果将来不给这个字段赋值或者赋值为null, 则默认使用当前系统时间自动赋值.</p>
+</li>
+<li>
+<p>varchar(20) 字符串类型,最大20个字符</p>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code class="language-sql ignore">//创建表
+create table student(
+	id int,
+	name varchar(32),
+	age int,
+	score double(4,1),
+	birthday date,
+	insert_time timestamp
+);
+//复制表
+create table 表名 like 被复制表名;
+</code></pre>
+<ol>
+<li>
+<p>R(Retrieve): 查询</p>
+<ul>
+<li>查询所有表名称: show tables;</li>
+<li>查询表结构: desc table_name;</li>
+</ul>
+</li>
+<li>
+<p>U(Update): 修改</p>
+<ul>
+<li>修改表名:             alter table 表名 rename to 新表名;</li>
+<li>修改表的字符集:  alter table 表名 character set utf8;</li>
+<li>添加一列:             alter table 表名 add 列名 数据类型;</li>
+<li>修改列名称,类型: alter table 表名 change 列名 新列名 新数据类型;</li>
+<li>修改类型:             alter table 表名 modify 列名 新数据类型;</li>
+<li>删除列:                 alter table 表名 drop 列名;</li>
+</ul>
+</li>
+<li>
+<p>D(Delete): 删除</p>
+<ul>
+<li>drop table if exists 表名;</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h2 id="dml-增删改表中的数据"><a class="header" href="#dml-增删改表中的数据">DML: 增删改表中的数据</a></h2>
+<ol>
+<li>
+<p>添加数据</p>
+<pre><code class="language-sql ignore">insert into 表名(列名1, 列名2,...) values (值1, 值2, ...);
+</code></pre>
+</li>
+<li>
+<p>删除数据</p>
+<pre><code class="language-sql ignore">delete from 表名 [where 条件];
+TRUNCATE TABLE 表名; //删除表, 并创建一个一模一样的表
+</code></pre>
+</li>
+<li>
+<p>修改数据</p>
+<pre><code class="language-sql ignore">update 表名 set 列名1=值1, 列名2=值2,...[where 条件];
+</code></pre>
+</li>
+</ol>
+<h2 id="dql-查询表中的记录"><a class="header" href="#dql-查询表中的记录">DQL: 查询表中的记录</a></h2>
+<ol>
+<li>
+<p>语法</p>
+<pre><code class="language-sql ignore">select 
+	字段列表
+from
+	表名列表
+where
+	条件列表
+group by
+	分组字段
+having
+	分组之后的条件
+order by
+	排序字段
+limit
+	分页
+</code></pre>
+</li>
+<li>
+<p>基础查询</p>
+<ul>
+<li>
+<p>多个字段的查询</p>
+<pre><code class="language-sql">select 字段1, 字段2... from 表名;
+</code></pre>
+</li>
+<li>
+<p>去除重复</p>
+<pre><code class="language-sql">SELECT DISTINCT 字段名 FROM 表名;
+</code></pre>
+</li>
+<li>
+<p>计算列</p>
+<pre><code class="language-sql">-- 计算math 和English分数之和
+SELECT `name`, english, math+english FROM student;
+-- 如果有null参数的运算, 计算结果都为null,要用IFNULL设置默认值
+SELECT `name`, math, english, math+IFNULL(english,0) FROM student;
+</code></pre>
+</li>
+<li>
+<p>起别名</p>
+<pre><code class="language-sql">SELECT `name`, math, english, math+IFNULL(english,0) as 总分 FROM student;
+SELECT `name` 名字, math 数学, english 英语, math+IFNULL(english,0) 总分 FROM student;
+-- AS 可以省略
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>条件查询</p>
+<ol>
+<li>
+<p>where子句后跟条件</p>
+</li>
+<li>
+<p>运算符</p>
+<pre><code class="language-sql ignore">&gt; &lt; &lt;= &gt;= = &lt;&gt;
+BETWEEN...AND
+IN(集合)
+LIKE _单个任意字符 %多个任意字符
+IS NULL
+AND 或 &amp;&amp;
+OR 或 ||
+NOT 或 !
+</code></pre>
+<pre><code class="language-sql ignore">-- 查询年龄大于20岁
+SELECT * FROM student WHERE age &gt; 20;
+SELECT * FROM student WHERE age &gt;= 20;
+-- 查询年龄等于20岁
+SELECT * FROM student WHERE age = 20;
+-- 查询年龄不等于20岁
+SELECT * FROM student WHERE age != 20;
+SELECT * FROM student WHERE age &lt;&gt; 20;
+-- 查询大于等于20, 小于等于30
+SELECT * FROM student WHERE age &gt;= 20 &amp;&amp; age &lt;= 30;
+SELECT * FROM student WHERE age &gt;= 20 AND age &lt;= 30;
+SELECT * FROM student WHERE age BETWEEN 20 AND 30;
+-- 查询年龄22岁, 18岁, 25岁的信息
+SELECT * FROM student WHERE age = 22 OR age = 18 OR age = 25;
+SELECT * FROM student WHERE age IN(22, 18, 25);
+-- 查询英语成绩是null的记录, null不能使用=或者!=判断
+SELECT * FROM student WHERE english = NULL; -- 错误
+SELECT * FROM student WHERE english IS NULL;
+SELECT * FROM student WHERE english IS NOT NULL;
+
+-- 查询姓马的人
+SELECT * FROM student WHERE `name` LIKE '马%';
+-- 第二个字是化的人
+SELECT * FROM student WHERE `name` LIKE &quot;_化%&quot;;
+-- 姓名是三个字的人
+SELECT * FROM student WHERE `name` LIKE &quot;___&quot;;
+-- 查询姓名中包含马的人
+SELECT * FROM student WHERE `name` LIKE &quot;%马%&quot;;
+</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="目录"><a class="header" href="#目录">目录</a></h1>
+<ol>
+<li>DQL: 查询语句
+<ol>
+<li>排序查询</li>
+<li>聚合函数</li>
+<li>分组查询</li>
+<li>分页查询</li>
+</ol>
+</li>
+<li>约束</li>
+<li>多表时间的关系</li>
+<li>范式</li>
+<li>数据库备份和还原</li>
+</ol>
+<h2 id="dql-查询语句"><a class="header" href="#dql-查询语句">DQL: 查询语句</a></h2>
+<ol>
+<li>
+<p>排序查询</p>
+<pre><code class="language-sql ignore">order by 子句;
+	order by 排序字段1 排序方式2, 排序字段2 排序方式2...
+排序方式: 
+	ASC: 升序
+	DESC: 降序
+-- 按照数学排序, 如果数学一样, 则按照英语排序
+SELECT * FROM student ORDER BY math, english;
+-- 如果有多个排序条件, 则当前面的条件值一样时, 才会判断第二个条件.
+</code></pre>
+</li>
+<li>
+<p>聚合函数: 将一列数据做整体, 进行纵向计算.</p>
+<ol>
+<li>
+<p>count: 计算个数</p>
+<blockquote>
+<p>一般选择非空的列, 例如: 主键</p>
+</blockquote>
+</li>
+<li>
+<p>max: 计算最大值</p>
+</li>
+<li>
+<p>min: 计算最小值</p>
+</li>
+<li>
+<p>avg: 计算平均值</p>
+<blockquote>
+<p>聚合函数的计算, 排除null值了.
+解决方法:</p>
+<ol>
+<li>选择不包含非空的列</li>
+<li>IFNULL函数</li>
+</ol>
+</blockquote>
+<pre><code class="language-sql ignore">SELECT COUNT(`name`) FROM student;
+
+SELECT COUNT(IFNULL(english,0)) FROM student;
+
+SELECT MAX(math) FROM student;
+
+SELECT MIN(math) FROM student;
+
+SELECT SUM(math) FROM student;
+
+SELECT AVG(math) FROM student;
+</code></pre>
+</li>
+</ol>
+</li>
+<li>
+<p>分组查询</p>
+<pre><code class="language-sql ignore">group by 分组字段;
+</code></pre>
+<blockquote>
+<p>分组之后可以查询的字段:  分组字段, 聚合函数</p>
+<p>where 和 having区别: </p>
+<p>​	where在分组之前限定, 如果不满足条件, 不参与分组</p>
+<p>​	having在分组之后限定, 如果不满足having条件, 不被查询</p>
+</blockquote>
+<pre><code class="language-sql ignore">-- 按性别分组并计算平均分
+SELECT sex, AVG(math), COUNT(id) FROM student GROUP BY sex;
+
+-- 按性别分组并计算分数大于70分的平均分
+SELECT sex, AVG(math), COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex;
+
+-- 按性别分组并计算分数大于70分的平均分, 并且分组之后分数大于2
+SELECT sex, AVG(math), COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex HAVING COUNT(id) &gt; 2;
+SELECT sex, AVG(math), COUNT(id) 人数 FROM student WHERE math &gt; 70 GROUP BY sex HAVING 人数 &gt; 2;
+</code></pre>
+</li>
+<li>
+<p>分页查询</p>
+<pre><code class="language-sql ignore">limit 开始索引, 查询的条数
+</code></pre>
+<pre><code class="language-sql ignore">-- 每页显示三条记录
+SELECT * FROM student LIMIT 0,3; -- 第一页
+SELECT * FROM student LIMIT 3,3; -- 第二页
+-- 公式: 开始的索引 = (当前页码 - 1) * 每页数
+SELECT * FROM student LIMIT 6,3;  -- 第三页
+</code></pre>
+<blockquote>
+<p>limit是一个MySQL的<code>方言</code></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="约束"><a class="header" href="#约束">约束</a></h2>
+<ul>
+<li>
+<p>概念: 对表中的数据进行限定, 保证数据的正确性, 有效性和完整性.</p>
+</li>
+<li>
+<p>分类: </p>
+<ol>
+<li>主键约束: primary key</li>
+<li>非空约束: not null</li>
+<li>唯一约束: unique</li>
+<li>外键约束: foreign key</li>
+</ol>
+<h3 id="主键约束"><a class="header" href="#主键约束">主键约束</a></h3>
+<blockquote>
+<ol>
+<li>非空且唯一</li>
+<li>一个表只能有一个字段是主键</li>
+<li>主键就是表中记录的唯一标识</li>
+</ol>
+</blockquote>
+<ol>
+<li>
+<p>创建表时添加主键</p>
+<pre><code class="language-sql ignore">CREATE TABLE stu(id INT PRIMARY KEY, name VARCHAR(20));
+</code></pre>
+</li>
+<li>
+<p>创建表之后添加主键</p>
+<pre><code class="language-sql ignore">ALTER TABLE stu MODIFY id INT PRIMARY KEY;
+</code></pre>
+</li>
+<li>
+<p>删除主键</p>
+<pre><code class="language-sql ignore">ALTER TABLE stu MODIFY id int; -- 错误,不生效
+ALTER TABLE stu DROP PRIMARY KEY;
+</code></pre>
+</li>
+<li>
+<p>自动增长</p>
+<ul>
+<li>
+<p>如果某一列是数值类型, 使用<code>auto_increment</code>可以用来完成值的自动增长.</p>
+<pre><code class="language-sql ignore">-- 创建表时添加自动增长
+CREATE TABLE stu(id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(20));
+
+-- 删除自动增长
+ALTER TABLE stu MODIFY id INT;
+
+-- 添加自动增长
+ALTER table stu MODIFY id INT PRIMARY KEY AUTO_INCREMENT;
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="非空约束-not-null"><a class="header" href="#非空约束-not-null">非空约束: not null</a></h3>
+<ol>
+<li>
+<p>创建表时添加约束</p>
+<pre><code class="language-sql ignore">CREATE TABLE stu(id INT, name VARCHAR(20) NOT NULL);
+</code></pre>
+</li>
+<li>
+<p>创建表完之后添加非空约束</p>
+<pre><code class="language-sql ignore">ALTER TABLE stu MODIFY `name` VARCHAR(20) NOT NULL;
+ALTER TABLE stu CHANGE `name` `name` VARCHAR(20) NOT NULL;
+</code></pre>
+</li>
+<li>
+<p>删除非空约束</p>
+<pre><code class="language-sql ignore">ALTER TABLE stu MODIFY `name` VARCHAR(20);
+ALTER TABLE stu CHANGE `name` `name` VARCHAR(20);
+</code></pre>
+</li>
+</ol>
+<h3 id="唯一约束-unique"><a class="header" href="#唯一约束-unique">唯一约束: unique</a></h3>
+<p>同一列的值不能重复</p>
+<ol>
+<li>
+<p>创建表时添加唯一约束</p>
+<pre><code class="language-sql ignore">CREATE TABLE stu(id INT, phone VARCHAR(20) UNIQUE);
+-- 注意: MySQL中, 唯一约束限定的列的值可以有多个null
+</code></pre>
+</li>
+<li>
+<p>创建表后添加</p>
+<pre><code class="language-sql ignore">ALTER TABLE stu MODIFY phone VARCHAR(20) UNIQUE;
+</code></pre>
+</li>
+<li>
+<p>删除唯一约束</p>
+<pre><code class="language-sql ignore">ALTER TABLE stu MODIFY phone VARCHAR(20); -- 不能通过这种方式
+ALTER TABLE stu DROP INDEX phone;
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>注意: MySQL中唯一约束限定的列的值可以有多个null</p>
+</blockquote>
+<h3 id="外键约束"><a class="header" href="#外键约束">外键约束</a></h3>
+<pre><code class="language-sql ignore">CREATE TABLE emp (
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   NAME VARCHAR(30),
+   age INT,
+   dep_name VARCHAR(30),
+   dep_location VARCHAR(30)
+);
+</code></pre>
+<pre><code class="language-sql ignore">-- 添加数据
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('张三', 20, '研发部', '广州');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('李四', 21, '研发部', '广州');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('王五', 20, '研发部', '广州');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('老王', 20, '销售部', '深圳');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('大王', 22, '销售部', '深圳');
+INSERT INTO emp (NAME, age, dep_name, dep_location) VALUES ('小王', 18, '销售部', '深圳');
+</code></pre>
+<pre><code class="language-sql ignore">-- 数据有冗余
+
+-- 解决方案：分成 2 张表
+-- 创建部门表(id,dep_name,dep_location)
+-- 一方，主表
+create table department(
+   id int primary key auto_increment,
+   dep_name varchar(20),
+   dep_location varchar(20)
+);
+
+-- 创建员工表(id,name,age,dep_id)
+-- 多方，从表
+create table employee(
+   id int primary key auto_increment,
+   name varchar(20),
+   age int,
+   dep_id int,  -- 外键对应主表的主键
+   CONSTRAINT emp_dept_fk FOREIGN KEY (dep_id) REFERENCES department(id)
+);
+
+-- 添加 2 个部门
+insert into department values(null, '研发部','广州'),(null, '销售部', '深圳');
+select * from department;
+
+-- 添加员工,dep_id 表示员工所在的部门
+INSERT INTO employee (NAME, age, dep_id) VALUES ('张三', 20, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('李四', 21, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('王五', 20, 1);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('老王', 20, 2);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('大王', 22, 2);
+INSERT INTO employee (NAME, age, dep_id) VALUES ('小王', 18, 2);
+select * from employee;
+</code></pre>
+<pre><code class="language-sql ignore">-- 删除外键
+ALTER TABLE employee DROP FOREIGN KEY emp_dept_fk;
+
+-- 添加外键
+ALTER TABLE employee ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dep_id) REFERENCES department(id);
+
+emp_dept_fk是外键名称
+
+-- 添加外键, 设置级联更新
+ALTER TABLE employee ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dep_id) REFERENCES department(id) ON UPDATE CASCADE;
+
+-- 添加外键, 设置级联删除
+ALTER TABLE employee ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dep_id) REFERENCES department(id) ON DELETE CASCADE;
+
+-- 同时设置
+ALTER TABLE employee ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dep_id) REFERENCES department(id) ON UPDATE CASCADE ON DELETE CASCADE;
+</code></pre>
+</li>
+</ul>
+<h2 id="数据库的设计"><a class="header" href="#数据库的设计">数据库的设计</a></h2>
+<ol>
+<li>
+<p>多表之间的关系</p>
+<ol>
+<li>
+<p>分类</p>
+<ol>
+<li>一对一:
+<ul>
+<li>人和身份证</li>
+<li>分析: 一个人有一个身份证, 一个身份证对应一个人</li>
+</ul>
+</li>
+<li>一对多(多对一):
+<ul>
+<li>部门和员工</li>
+<li>分析: 一个部门有多个员工, 一个员工只能对应一个部门</li>
+</ul>
+</li>
+<li>多对多:
+<ul>
+<li>如: 学生和课程</li>
+<li>分析: 一个学生可以选择多个课程, 一个课程可以被多个学生选择</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>实现:</p>
+<ol>
+<li>一对多:
+<ul>
+<li>部门和员工</li>
+<li>实现方式: 在多的一方建立外键, 指向一的一方的主键.</li>
+</ul>
+</li>
+<li>多对多:
+<ul>
+<li>学生和课程</li>
+<li>实现方式: 多对多关系实现需要借助第三张中间表,中间表至少包含两个字段, 这两个字段作为第三张表的外键, 分别指向其他两张表的主键.</li>
+</ul>
+</li>
+<li>一对一:
+<ul>
+<li>学生和身份证</li>
+<li>实现方式: 可以在任意一方添加唯一(unique)外键指向另一方的主键.</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>案例: </p>
+<p>分类表</p>
+<table><thead><tr><th>cid</th><th>ame</th></tr></thead><tbody>
+<tr><td>x</td><td>x</td></tr>
+</tbody></table>
+<p>线路表</p>
+<table><thead><tr><th>rid</th><th>name</th><th>price</th><th>cid</th></tr></thead><tbody>
+<tr><td></td><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>用户表</p>
+<table><thead><tr><th>uid</th><th>username</th><th>password</th></tr></thead><tbody>
+<tr><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>中间表</p>
+<table><thead><tr><th>rid</th><th>uid</th></tr></thead><tbody>
+<tr><td></td><td></td></tr>
+</tbody></table>
+<p>分类1     线路表N  一对多</p>
+<p>线路表N  用户M 多对多, 中间表</p>
+</li>
+</ol>
+</li>
+<li>
+<p>数据库设计的范式</p>
+<ol>
+<li>第一范式: 每一列都是不可分割的原子数据项</li>
+<li>第二范式: 在1NF的基础上,非码属性必须完全依赖于候选码(在1NF基础上消除非主属性对主码的部分函数依赖)</li>
+<li>第三方是: 在2NF的基础上, 任何非主属性不依赖于其他非主属性(在2NF基础上消除传递依赖)</li>
+</ol>
+</li>
+</ol>
+<h2 id="数据库备份和还原"><a class="header" href="#数据库备份和还原">数据库备份和还原</a></h2>
+<ol>
+<li>命令行
+<ul>
+<li>mysqldump -u用户名 -p密码 数据库名称 &gt; 保存路径</li>
+<li>还原
+<ol>
+<li>登录数据库</li>
+<li>创建数据库</li>
+<li>使用数据库</li>
+<li>执行文件. source 文件路径</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>图形化工具</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="目录-1"><a class="header" href="#目录-1">目录</a></h1>
+<ol>
+<li>多表查询</li>
+<li>事务</li>
+<li>DCL</li>
+</ol>
+<h2 id="多表查询"><a class="header" href="#多表查询">多表查询</a></h2>
+<ul>
+<li>
+<p>查询语法</p>
+<pre><code class="language-sql">select
+	列名列表
+from
+	表名列表
+where ...
+</code></pre>
+<p>操作数据</p>
+<pre><code class="language-sql">-- 部门表
+CREATE TABLE dept (
+  id INT PRIMARY KEY PRIMARY KEY, -- 部门id
+  dname VARCHAR(50), -- 部门名称
+  loc VARCHAR(50) -- 部门所在地
+);
+
+-- 添加4个部门
+INSERT INTO dept(id,dname,loc) VALUES 
+(10,'教研部','北京'),
+(20,'学工部','上海'),
+(30,'销售部','广州'),
+(40,'财务部','深圳');
+
+
+
+-- 职务表，职务名称，职务描述
+CREATE TABLE job (
+  id INT PRIMARY KEY,
+  jname VARCHAR(20),
+  description VARCHAR(50)
+);
+
+-- 添加4个职务
+INSERT INTO job (id, jname, description) VALUES
+(1, '董事长', '管理整个公司，接单'),
+(2, '经理', '管理部门员工'),
+(3, '销售员', '向客人推销产品'),
+(4, '文员', '使用办公软件');
+
+
+
+-- 员工表
+CREATE TABLE emp (
+  id INT PRIMARY KEY, -- 员工id
+  ename VARCHAR(50), -- 员工姓名
+  job_id INT, -- 职务id
+  mgr INT , -- 上级领导
+  joindate DATE, -- 入职日期
+  salary DECIMAL(7,2), -- 工资
+  bonus DECIMAL(7,2), -- 奖金
+  dept_id INT, -- 所在部门编号
+  CONSTRAINT emp_jobid_ref_job_id_fk FOREIGN KEY (job_id) REFERENCES job (id),
+  CONSTRAINT emp_deptid_ref_dept_id_fk FOREIGN KEY (dept_id) REFERENCES dept (id)
+);
+
+-- 添加员工
+INSERT INTO emp(id,ename,job_id,mgr,joindate,salary,bonus,dept_id) VALUES 
+(1001,'孙悟空',4,1004,'2000-12-17','8000.00',NULL,20),
+(1002,'卢俊义',3,1006,'2001-02-20','16000.00','3000.00',30),
+(1003,'林冲',3,1006,'2001-02-22','12500.00','5000.00',30),
+(1004,'唐僧',2,1009,'2001-04-02','29750.00',NULL,20),
+(1005,'李逵',4,1006,'2001-09-28','12500.00','14000.00',30),
+(1006,'宋江',2,1009,'2001-05-01','28500.00',NULL,30),
+(1007,'刘备',2,1009,'2001-09-01','24500.00',NULL,10),
+(1008,'猪八戒',4,1004,'2007-04-19','30000.00',NULL,20),
+(1009,'罗贯中',1,NULL,'2001-11-17','50000.00',NULL,10),
+(1010,'吴用',3,1006,'2001-09-08','15000.00','0.00',30),
+(1011,'沙僧',4,1004,'2007-05-23','11000.00',NULL,20),
+(1012,'李逵',4,1006,'2001-12-03','9500.00',NULL,30),
+(1013,'小白龙',4,1004,'2001-12-03','30000.00',NULL,20),
+(1014,'关羽',4,1007,'2002-01-23','13000.00',NULL,10);
+
+
+
+-- 工资等级表
+CREATE TABLE salarygrade (
+  grade INT PRIMARY KEY,   -- 级别
+  losalary INT,  -- 最低工资
+  hisalary INT -- 最高工资
+);
+
+-- 添加5个工资等级
+INSERT INTO salarygrade(grade,losalary,hisalary) VALUES 
+(1,7000,12000),
+(2,12010,14000),
+(3,14010,20000),
+(4,20010,30000),
+(5,30010,99990);
+
+-- 需求：
+
+-- 1.查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述
+
+-- 2.查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置
+   
+-- 3.查询员工姓名，工资，工资等级
+
+-- 4.查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级
+
+-- 5.查询出部门编号、部门名称、部门位置、部门人数
+ 
+-- 6.查询所有员工的姓名及其直接上级的姓名,没有领导的员工也需要查询
+</code></pre>
+</li>
+<li>
+<p>笛卡尔积</p>
+<ul>
+<li>有两个集合A,B, 取这来能个集合的所有组成情况</li>
+<li>要完成多表查询,需要消除无用的数据.</li>
+</ul>
+</li>
+<li>
+<p>多表查询分类:</p>
+<ol>
+<li>
+<p>内连接查询</p>
+<ol>
+<li>
+<p>隐式内连接(用where清除无用数据)</p>
+<pre><code class="language-sql">-- 查询所有员工信息和对应部门信息
+SELECT * FROM emp, dept WHERE emp.dept_id = dept.id;
+
+-- 查询员工表姓名, 工资 以及部门名称
+SELECT emp.ename, emp.salary, dept.dname FROM emp, dept WHERE emp.dept_id = dept.id;
+SELECT t1.ename, t1.salary, t2.dname FROM emp t1, dept t2 WHERE t1.dept_id = t2.id;
+</code></pre>
+</li>
+<li>
+<p>显式内连接</p>
+<ul>
+<li>
+<p>语法</p>
+<pre><code class="language-sql">select 字段列表 from 表名1 inner join 表名2 on 条件
+</code></pre>
+</li>
+<li>
+<p>例如:</p>
+<pre><code class="language-sql">SELECT * FROM emp INNER JOIN dept on emp.dept_id = dept.id;
+SELECT * FROM emp JOIN dept on emp.dept_id = dept.id;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>内连接查询</p>
+<ol>
+<li>从哪些表中查询数据</li>
+<li>条件是什么</li>
+<li>查询哪些字段</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>外连接查询</p>
+<ol>
+<li>
+<p>左外连接</p>
+<ul>
+<li>
+<p>语法</p>
+<pre><code class="language-sql">select 字段列表 from 表1 left outer join 表2 on 条件
+</code></pre>
+</li>
+<li>
+<p>查询的是左边表所有记录, 以及其交集部分.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>右外连接</p>
+<ul>
+<li>
+<p>语法</p>
+<pre><code class="language-sql">select 字段列表 from 表1 right outer join 表2 on 条件
+</code></pre>
+</li>
+<li>
+<p>查询的是右边表所有记录, 以及其交集部分.</p>
+</li>
+</ul>
+<blockquote>
+<p>表名换个位置,左外就变成了右外.</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<p>子查询</p>
+<ul>
+<li>
+<p>概念: 查询中嵌套查询, 称嵌套查询为子查询.</p>
+<pre><code class="language-sql">-- 查询工资最高的员工信息
+-- 1. 查询最高的工资是多少
+SELECT MAX(salary) FROM emp;
+-- 2. 查询员工信息, 并且工资是9000
+SELECT * FROM emp WHERE emp.salary = 50000;
+-- 综合
+SELECT * FROM emp WHERE emp.salary = (SELECT MAX(salary) FROM emp);
+</code></pre>
+</li>
+<li>
+<p>子查询的不同情况</p>
+<ol>
+<li>
+<p>子查询结果是单行单列</p>
+<ul>
+<li>
+<p>子查询可以作为条件使用运算符判断. (&gt; &lt; =等等)</p>
+<pre><code class="language-sql">-- 查询员工工资小于平均工资的人
+SELECT * from emp WHERE emp.salary &lt; (SELECT AVG(salary) FROM emp);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>子查询结果是多行单列</p>
+<ul>
+<li>
+<p>子查询可以作为条件, 使用运算符IN</p>
+<pre><code class="language-sql">-- 查询财务部和销售部所有员工信息
+SELECT id FROM dept WHERE dname = &quot;财务部&quot; OR dname = &quot;市场部&quot;;
+SELECT * FROM emp WHERE dept_id = 40;
+
+SELECT * FROM emp WHERE dept_id IN (SELECT id FROM dept WHERE dname = &quot;财务部&quot; OR dname = &quot;销售部&quot;);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>子查询结果是多行多列, 子查询可以作为一个虚拟表</p>
+<ul>
+<li>
+<p>子查询</p>
+<pre><code class="language-sql  ignore">-- 查询员工入职日期是2011-11-11之后的员工信息和部门信息
+SELECT * FROM emp WHERE joindate &gt; &quot;2001-05-01&quot;;
+SELECT * FROM dept t1, (SELECT * FROM emp WHERE joindate &gt; &quot;2001-05-01&quot;) t2 WHERE t1.id = t2.dept_id;
+</code></pre>
+</li>
+<li>
+<p>普通查询</p>
+<pre><code class="language-sql">-- 普通内连接
+SELECT * FROM emp t1, dept t2 WHERE t1.dept_id = t2.id AND t1.joindate &gt; &quot;2001-05-01&quot;;
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>多表查询练习</p>
+<pre><code class="language-sql">-- 需求：
+-- 1.查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述
+SELECT
+  t1.id, t1.ename, t1.salary, t2.jname, t2.description
+FROM
+  emp t1, job t2
+WHERE
+  t1.job_id = t2.id;
+-- 2.查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置
+SELECT
+  t1.id, t1.ename, t1.salary, t2.jname, t2.description, t3.dname, t3.loc
+FROM
+  emp t1, job t2, dept t3
+WHERE
+  t1.job_id = t2.id AND t1.dept_id = t3.id;
+-- 3.查询员工姓名，工资，工资等级
+SELECT 
+  t1.ename,
+  t1.salary, 
+  t2.*
+FROM 
+  emp t1, salarygrade t2
+WHERE
+  t1.salary BETWEEN t2.losalary AND t2.hisalary;
+-- 4.查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级
+SELECT
+  t1.id, t1.ename, t1.salary, t2.jname, t2.description, t3.dname, t3.loc, t4.*
+FROM
+  emp t1, job t2, dept t3, salarygrade t4
+WHERE
+  t1.job_id = t2.id AND t1.dept_id = t3.id AND (t1.salary BETWEEN t4.losalary AND t4.hisalary);
+-- 5.查询出部门编号、部门名称、部门位置、部门人数
+SELECT
+  t1.id, t1.dname, t1.loc, t2.total
+FROM dept t1,
+    (SELECT dept_id, COUNT(id) total
+      FROM emp
+      GROUP BY dept_id) t2
+WHERE t1.id = t2.dept_id;
+-- 6.查询所有员工的姓名及其直接上级的姓名,没有领导的员工也需要查询
+  SELECT 
+  t1.ename, t1.mgr, t2.id, t2.ename
+  FROM 
+  emp t1, emp t2
+  WHERE 
+  t1.mgr = t2.id; -- 自关联
+  
+-- 没有领导的员工也需要查询
+SELECT 
+  t1.ename, t1.mgr, t2.id, t2.ename
+  FROM 
+  emp t1
+LEFT JOIN
+  emp t2
+ON 
+  t1.mgr = t2.id; -- 自关联
+</code></pre>
+</li>
+</ul>
+<h2 id="事务"><a class="header" href="#事务">事务</a></h2>
+<ol>
+<li>
+<p>事务的基本介绍 </p>
+<ol>
+<li>
+<p>概念:</p>
+<ul>
+<li>如果一个包含多个步骤的业务操作被事务管理, 要么这些操作同时成功, 或者同时失败.</li>
+</ul>
+</li>
+<li>
+<p>操作</p>
+<ul>
+<li>开启事务 <code>start transaction</code></li>
+<li>回滚: <code>rollback</code></li>
+<li>提交: <code>commit</code></li>
+</ul>
+</li>
+<li>
+<p>例子</p>
+</li>
+</ol>
+<pre><code class="language-sql ignore">CREATE TABLE `account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `balance` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+</code></pre>
+<pre><code class="language-sql ignore">-- 开启事务
+START TRANSACTION;
+UPDATE account SET balance = balance - 500 WHERE name = &quot;张三&quot;;
+UPDATE account SET balance = balance - 500 WHERE name = &quot;李四&quot;;
+-- 如果出错
+ROLLBACK;
+-- 如果没错
+COMMIT;
+</code></pre>
+<ol start="4">
+<li>MySQL数据库中事务默认自动提交</li>
+</ol>
+<ul>
+<li>事务提交的两种方式
+<ul>
+<li>自动提交
+<ul>
+<li>MySQL就是自动提交的</li>
+<li>一条DML(增删改)语句会自动提交一次事务</li>
+</ul>
+</li>
+<li>手动提交:
+<ul>
+<li>Oracle数据库默认是手动提交事务</li>
+<li>需要先开启事务再提交</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>修改事务的默认提交方式
+<ul>
+<li>查看事务的默认提交方式:  <code>SELECT @@autocommit;</code></li>
+<li>修改事务的默认提交方式: <code>set @@autocommit = 1; 1开启自动提交, 0关闭自动提交</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>事务的四大特征</p>
+<ol>
+<li>原子性: 是不可分割的最小单位, 要么同时成功, 要么同时失败.</li>
+<li>持久性: 当事务提交或回滚后, 数据库会持久化的保存数据.</li>
+<li>隔离性: 多个事务之间, 相互独立.</li>
+<li>一致性: 开始和结束之间的状态不会被其他事务看到.</li>
+</ol>
+</li>
+<li>
+<p>事务的隔离级别(了解)</p>
+<ul>
+<li>
+<p>概念: 多个事务是隔离的, 相互独立的. 但是如果多个事务操作同一批数据, 则会引发一些问题,设置不同的隔离级别就可以解决这些问题.</p>
+</li>
+<li>
+<p>存在的问题:</p>
+<ol>
+<li>脏读: 一个事务读取到另一个事务没有提交的数据</li>
+<li>不可重复读(虚读): 在同一个事务中, 两次读取的数据不一样.</li>
+<li>幻读: 数据表中所有的记录, 另一个事物添加了一条数据, 则第一个事务查询不到自己的修改.</li>
+</ol>
+</li>
+<li>
+<p>隔离级别:</p>
+<ol>
+<li>
+<p>read umcommited: 读未提交</p>
+<p>产生的问题: 脏读, 不可重复读, 幻读</p>
+</li>
+<li>
+<p>read commited: 读已提交</p>
+<p>产生的问题: 不可重复读, 幻读</p>
+</li>
+<li>
+<p>repeatable read: 可重复读</p>
+<p>产生的问题: 幻读</p>
+</li>
+<li>
+<p>serializable: 串行化</p>
+<p>可以解决所有问题</p>
+</li>
+</ol>
+<blockquote>
+<p>注意: 隔离级别从小到大安全性越来越高, 但是性能越来越低</p>
+<p>数据库查询隔离级别: <code>select @@transaction_isolation;</code></p>
+<p>设置数据库隔离级别: <code>SET transaction_isolation = value;</code></p>
+</blockquote>
+<pre><code class="language-sql ignore"> set global transaction isolation level read uncommitted;
+ start transaction;
+ -- 转账操作
+ update account set balance = balance - 500 where id = 1;
+ update account set balance = balance + 500 where id = 2;
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="dcl"><a class="header" href="#dcl">DCL</a></h2>
+<ul>
+<li>
+<p>SQL分类</p>
+<ol>
+<li>DDL: 操作数据库和表</li>
+<li>DML: 增删改表中数据</li>
+<li>DQL: 查询表中的数据</li>
+<li>DCL: 管理用户, 授权</li>
+</ol>
+</li>
+<li>
+<p>DBA: 数据库管理员</p>
+</li>
+<li>
+<p>DCL: 管理用户, 授权</p>
+<ol>
+<li>
+<p>管理用户</p>
+<pre><code class="language-sql">-- 增加用户
+CREATE USER 'tomcat'@'localhost' IDENTIFIED BY 'root';
+-- 修改密码
+UPDATE USER SET PASSWORD = PASSWORD('新密码') WHERE USER = '用户名';
+UPDATE USER SET PASSWORD = PASSWORD('abc') WHERE USER = 'lisi';
+SET PASSWORD FOR '用户名'@'主机名' = PASSWORD('新密码');
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('123');
+-- 删除用户
+DROP USER '用户名'@'主机名';
+-- 查询用户
+-- 1. 切换到mysql数据库
+USE myql;
+-- 2. 查询user表
+SELECT * FROM USER;
+* 通配符： % 表示可以在任意主机使用用户登录数据库
+			权限管理
+			1. 查询权限：
+				-- 查询权限
+				SHOW GRANTS FOR '用户名'@'主机名';
+				SHOW GRANTS FOR 'lisi'@'%';
+
+			2. 授予权限：
+				-- 授予权限
+				grant 权限列表 on 数据库名.表名 to '用户名'@'主机名';
+				-- 给张三用户授予所有权限，在任意数据库任意表上
+				
+				GRANT ALL ON *.* TO 'zhangsan'@'localhost';
+			3. 撤销权限：
+				-- 撤销权限：
+				revoke 权限列表 on 数据库名.表名 from '用户名'@'主机名';
+				REVOKE UPDATE ON db3.`account` FROM 'lisi'@'%';
+</code></pre>
+<ul>
+<li>
+<p>MySQL中忘记密码:</p>
+<pre><code class="language-sql">1. cmd -- &gt; net stop mysql 停止mysql服务
+* 需要管理员运行该cmd
+2. 使用无验证方式启动mysql服务： mysqld --skip-grant-tables
+3. 打开新的cmd窗口,直接输入mysql命令，敲回车。就可以登录成功
+4. use mysql;
+5. update user set password = password('你的新密码') where user = 'root';
+6. 关闭两个窗口
+7. 打开任务管理器，手动结束mysqld.exe 的进程
+8. 启动mysql服务
+9. 使用新密码登录。
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="jdbc"><a class="header" href="#jdbc">JDBC</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="目录-2"><a class="header" href="#目录-2">目录</a></h1>
+<ol>
+<li>数据库连接池</li>
+<li>Spring JDBCTemplate</li>
+</ol>
+<h2 id="数据库连接池"><a class="header" href="#数据库连接池">数据库连接池</a></h2>
+<ol>
+<li>
+<p>概念: 一个容器, 存放数据库连接的容器.</p>
+<p>当系统被初始化后, 容器被创建, 容器中会申请一些连接对象, 当用户来访问数据库的时候, 从容器中获取链接对象,用户访问完之后将链接对象归还给容器.</p>
+</li>
+<li>
+<p>好处</p>
+<ol>
+<li>节约资源</li>
+<li>用户访问搞笑</li>
+</ol>
+</li>
+<li>
+<p>实现</p>
+<ol>
+<li>标准接口: DataSource javax.sql包下
+<ol>
+<li>方法
+<ul>
+<li>获取链接 (略)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>C3P0: 数据库连接池技术</p>
+</li>
+<li>
+<p>Druid: 数据库连接池实现技术，由阿里巴巴提供的</p>
+</li>
+</ol>
+<h2 id="spring-jdbc"><a class="header" href="#spring-jdbc">Spring JDBC</a></h2>
+<p>Spring框架对JDBC的简单封装, 体统了一个JDBCTemplate对象简化JDBC的开发</p>
+<ul>
+<li>步骤: 略</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mybatis"><a class="header" href="#mybatis">MyBatis</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><ol>
+<li>创建maven工程并导入坐标</li>
+<li>创建实体类和dao接口</li>
+<li>创建mybatis的主配置文件<code>SqlMapConfig.xml</code></li>
+<li>创建映射配置文件<code>UserDao.xml</code></li>
+</ol>
+<pre><code>.
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── swifter
+│   │           ├── dao
+│   │           │   └── UserDao.java
+│   │           └── domain
+│   │               └── User.java
+│   └── resources
+│       ├── SqlMapConfig.xml
+│       ├── com
+│       │   └── swifter
+│       │       └── dao
+│       │           └── UserDao.xml
+│       └── log4j.properties
+└── test
+    └── java
+        └── com
+            └── swifter
+                └── test
+                    └── MybatisTest.java
+</code></pre>
+<pre><code>SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) NOT NULL COMMENT '用户名称',
+  `birthday` datetime DEFAULT NULL COMMENT '生日',
+  `sex` char(1) DEFAULT NULL COMMENT '性别',
+  `address` varchar(256) DEFAULT NULL COMMENT '地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES (41, '老王', '2018-02-27 17:47:08', '男', '北京');
+INSERT INTO `user` VALUES (42, '小二王', '2018-03-02 15:09:37', '女', '北京金燕龙');
+INSERT INTO `user` VALUES (43, '小二王', '2018-03-04 11:34:34', '女', '北京金燕龙');
+INSERT INTO `user` VALUES (45, '传智播客', '2018-03-04 12:04:06', '男', '北京金燕龙');
+INSERT INTO `user` VALUES (46, '老王', '2018-03-07 17:37:26', '男', '北京');
+INSERT INTO `user` VALUES (48, '小马宝莉', '2018-03-08 11:44:00', '女', '北京修正');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
+</code></pre>
+<ol>
+<li>
+<p>maven坐标</p>
+<pre><code>    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+            &lt;version&gt;3.5.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.6&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;log4j&lt;/groupId&gt;
+            &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+            &lt;version&gt;1.2.12&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.10&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre>
+</li>
+<li>
+<p>创建实体类和dao接口</p>
+<pre><code>package com.swifter.domain;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @author 黑马程序员
+ * @Company http://www.ithiema.com
+ */
+public class User implements Serializable{
+
+    private Integer id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, username='&quot; + username + '\'' +
+                &quot;, birthday=&quot; + birthday +
+                &quot;, sex='&quot; + sex + '\'' +
+                &quot;, address='&quot; + address + '\'' +
+                '}';
+    }
+}
+</code></pre>
+<pre><code>package com.swifter.dao;
+
+import com.swifter.domain.User;
+
+import java.util.List;
+
+/**
+ * @author 黑马程序员
+ * @Company http://www.ithiema.com
+ *
+ * 用户的持久层接口
+ */
+public interface IUserDao {
+
+    /**
+     * 查询所有操作
+     * @return
+     */
+    List&lt;User&gt; findAll();
+}
+</code></pre>
+</li>
+<li>
+<p>创建SqlMapConfig.xml文件</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE configuration
+        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+&lt;!-- mybatis的主配置文件 --&gt;
+&lt;configuration&gt;
+    &lt;!-- 配置环境 --&gt;
+    &lt;environments default=&quot;mysql&quot;&gt;
+        &lt;!-- 配置mysql的环境--&gt;
+        &lt;environment id=&quot;mysql&quot;&gt;
+            &lt;!-- 配置事务的类型--&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;
+            &lt;!-- 配置数据源（连接池） --&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;!-- 配置连接数据库的4个基本信息 --&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/eesy?characterEncoding=UTF-8&quot;/&gt;
+                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+                &lt;property name=&quot;password&quot; value=&quot;jingxuetao&quot;/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+
+    &lt;!-- 指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件 --&gt;
+    &lt;mappers&gt;
+        &lt;mapper resource=&quot;com/itheima/dao/IUserDao.xml&quot;/&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;
+</code></pre>
+</li>
+<li>
+<p>创建映射配置文件</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.swifter.dao.IUserDao&quot;&gt;
+		&lt;!--namespace dao接口的全限定类名--&gt;
+    &lt;!--配置查询所有--&gt;
+    &lt;select id=&quot;findAll&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+        select * from user
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+</li>
+<li>
+<p>测试</p>
+<pre><code>package com.swifter;
+
+import com.swifter.dao.IUserDao;
+import com.swifter.domain.User;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import java.io.InputStream;
+import java.util.List;
+
+public class MyBatisTest {
+    public static void main(String[] args) throws Exception {
+        //1. 读取配置文件
+        InputStream in = Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);
+        //2. 创建SQLSessionFactory
+        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(in);
+        //3. 使用工厂生产SQLSession对象
+        SqlSession session = factory.openSession();
+        //4. 使用SQLSession创建dao接口的代理对象
+        IUserDao userDao = session.getMapper(IUserDao.class);
+        //5.使用代理对象执行方法
+        List&lt;User&gt; all = userDao.findAll();
+        for (User user : all) {
+            System.out.println(user);
+        }
+        //6.释放资源
+        session.close();
+        in.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>注意实现</p>
+<ol>
+<li>创建UserDao.xml 和 UserDao.java时, 名称是为了和之前的知识保持一致,mybatis把持久层操作接口名称和映射文件(Mapper) UserMapper和UserDao 应该只是名称的区别</li>
+<li>在idea中创建目录时和包不一样, 包创建com.swifter.dao是三级目录, 目录创建是一级目录.</li>
+<li>mybatis映射配置文件必须和dao接口包结构相同</li>
+<li>映射配置文件的mapper标签namespace属性取值,必须是dao接口的全限定类名.</li>
+<li>映射配置文件的操作配置,id属性取值必须是dao接口的方法名.</li>
+</ol>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><p>自定义mybatis分析</p>
+<ol>
+<li>
+<p>创建代理对象</p>
+</li>
+<li>
+<p>在代理对象中调用selectList方法</p>
+<ol>
+<li>
+<p>自定义mybatis需要的类:</p>
+</li>
+<li>
+<p>class Resources</p>
+</li>
+<li>
+<p>class SqlSessionFactoryBuilder</p>
+</li>
+<li>
+<p>interface SqlSessionFactory</p>
+</li>
+<li>
+<p>interface SqlSession</p>
+</li>
+</ol>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="dao"><a class="header" href="#dao">dao</a></h2>
+<pre><code class="language-java">package com.swifter.dao;
+
+import com.swifter.domain.QueryVo;
+import com.swifter.domain.User;
+
+import java.util.List;
+
+/**
+ * @author 黑马程序员
+ * @Company http://www.ithiema.com
+ *
+ * 用户的持久层接口
+ */
+public interface UserDao {
+
+    /**
+     * 查询所有操作
+     * @return
+     */
+    List&lt;User&gt; findAll();
+
+    /**
+     * 保存用户
+     * @param user
+     */
+    void saveUser(User user);
+
+    /**
+     * 更新用户
+     * @param user
+     */
+    void updateUser(User user);
+
+    /**
+     * 删除用户
+     * @param id
+     */
+    void deleteUser(Integer id);
+
+    /**
+     * 根据ID查用户
+     * @param id
+     */
+    User findById(Integer id);
+
+    /**
+     * 模糊查询
+     * @param name
+     * @return
+     */
+    List&lt;User&gt; findByName(String name);
+
+    /**
+     * 总记录数
+     * @return
+     */
+    int findTotal();
+
+    /**
+     * 根据QueryVo中的条件查询用户
+     * @param vo
+     * @return
+     */
+    List&lt;User&gt; findUserByVo(QueryVo vo);
+}
+</code></pre>
+<h2 id="domain"><a class="header" href="#domain">domain</a></h2>
+<p>QueryVo.java</p>
+<pre><code class="language-java">package com.swifter.domain;
+
+public class QueryVo {
+
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+}
+</code></pre>
+<p>User.java</p>
+<pre><code class="language-java">package com.swifter.domain;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @author 黑马程序员
+ * @Company http://www.ithiema.com
+ */
+public class User implements Serializable{
+
+    private Integer id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, username='&quot; + username + '\'' +
+                &quot;, birthday=&quot; + birthday +
+                &quot;, sex='&quot; + sex + '\'' +
+                &quot;, address='&quot; + address + '\'' +
+                '}';
+    }
+}
+</code></pre>
+<h2 id="xml"><a class="header" href="#xml">xml</a></h2>
+<p>com/swifter/dao</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;!DOCTYPE mapper
+
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+
+&lt;mapper namespace=&quot;com.swifter.dao.UserDao&quot;&gt;
+
+    &lt;!-- 当属性名和列名不一致时 --&gt;
+    &lt;!-- 配置结果列名和实体类的属性名的对应关系 --&gt;
+    &lt;resultMap id=&quot;userMap&quot; type=&quot;com.swifter.domain.User&quot;&gt;
+        &lt;!-- 主键对应 --&gt;
+        &lt;id property=&quot;userId&quot; column=&quot;id&quot;&gt;&lt;/id&gt;
+        &lt;!-- 非主键字段 --&gt;
+        &lt;result property=&quot;userName&quot; column=&quot;username&quot;&gt;&lt;/result&gt;
+        &lt;result property=&quot;userAddress&quot; column=&quot;address&quot;&gt;&lt;/result&gt;
+        &lt;result property=&quot;userSex&quot; column=&quot;sex&quot;&gt;&lt;/result&gt;
+        &lt;result property=&quot;userBirthday&quot; column=&quot;birthday&quot;&gt;&lt;/result&gt;
+    &lt;/resultMap&gt;
+
+    &lt;!-- 配置查询所有操作 --&gt;
+    &lt;select id=&quot;findAll&quot; resultMap=&quot;userMap&quot;&gt;
+--         select id as userId ...
+        select * from user
+    &lt;/select&gt;
+    &lt;!-- ==============================================--&gt;
+    &lt;!-- 配置查询所有操作 --&gt;
+    &lt;select id=&quot;findAll&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+    select * from user
+    &lt;/select&gt;
+
+    &lt;!-- 插入用户--&gt;
+    &lt;insert id=&quot;saveUser&quot; parameterType=&quot;com.swifter.domain.User&quot;&gt;
+--         配置插入用户后的ID
+        &lt;selectKey keyProperty=&quot;id&quot; keyColumn=&quot;id&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;
+            select last_insert_id();
+        &lt;/selectKey&gt;
+        insert into user(username, address, sex, birthday) values(#{username}, #{address}, #{sex}, #{birthday})
+    &lt;/insert&gt;
+
+    &lt;!-- 更新用户--&gt;
+    &lt;update id=&quot;updateUser&quot; parameterType=&quot;com.swifter.domain.User&quot;&gt;
+        update user set username=#{username}, address=#{address}, sex=#{sex}, birthday=#{birthday} where id = #{id}
+    &lt;/update&gt;
+
+    &lt;delete id=&quot;deleteUser&quot; parameterType=&quot;java.lang.Integer&quot;&gt;
+--         id就是个占位符, id, uid, userId都可以
+        delete from user where id = #{id}
+    &lt;/delete&gt;
+
+    &lt;!-- 根据ID查用户 --&gt;
+    &lt;select id=&quot;findById&quot; parameterType=&quot;int&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+--         id就是个占位符, id, uid, userId都可以
+        select * from user where id = #{id}
+    &lt;/select&gt;
+&lt;!--模糊查询--&gt;
+    &lt;select id=&quot;findByName&quot; parameterType=&quot;string&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+        select * from user where username like #{name}
+    &lt;/select&gt;
+
+&lt;!--    获取总记录条数--&gt;
+    &lt;select id=&quot;findTotal&quot; resultType=&quot;int&quot;&gt;
+        select count(id) from user
+    &lt;/select&gt;
+
+&lt;!--    根据QueryVo的条件查询用户--&gt;
+    &lt;select id=&quot;findUserByVo&quot; parameterType=&quot;com.swifter.domain.QueryVo&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+        select * from user where username like #{user.username}
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+<h2 id="test"><a class="header" href="#test">Test</a></h2>
+<pre><code class="language-java">import com.swifter.dao.UserDao;
+import com.swifter.domain.QueryVo;
+import com.swifter.domain.User;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.After;
+import org.junit.Before;
+
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+
+public class Test {
+
+    private InputStream in;
+    private SqlSessionFactory factory;
+    private SqlSession session;
+    private UserDao userDao;
+
+    @Before
+    public void init() throws Exception {
+        //1. 读取配置文件
+        in = Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);
+        //2. 创建SQLSessionFactory
+        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+        factory = builder.build(in);
+        //3. 使用工厂生产SQLSession对象
+        session = factory.openSession();
+        //4. 使用SQLSession创建dao接口的代理对象
+        userDao = session.getMapper(UserDao.class);
+    }
+
+    @After
+    public void destory() throws Exception {
+        //提交事务
+        session.commit();
+        session.close();
+        in.close();
+    }
+
+    @org.junit.Test
+    public void testFindAll() throws Exception {
+        //5.使用代理对象执行方法
+        List&lt;User&gt; all = userDao.findAll();
+        for (User user : all) {
+            System.out.println(user);
+        }
+    }
+
+    @org.junit.Test
+    public void testInsertUser() throws Exception {
+        User user = new User();
+        user.setUsername(&quot;哈哈哈&quot;);
+        user.setSex(&quot;男&quot;);
+        user.setAddress(&quot;北京市朝阳区&quot;);
+        user.setBirthday(new Date());
+        System.out.println(user);
+        userDao.saveUser(user);
+        System.out.println(user);
+    }
+
+    @org.junit.Test
+    public void updateUser() {
+        User user = new User();
+        user.setId(50);
+        user.setUsername(&quot;哈哈哈&quot;);
+        user.setSex(&quot;女&quot;);
+        user.setAddress(&quot;北京市朝阳区&quot;);
+        user.setBirthday(new Date());
+        userDao.updateUser(user);
+    }
+
+    @org.junit.Test
+    public void deleteUser() {
+        userDao.deleteUser(50);
+    }
+
+    @org.junit.Test
+    public void findById() {
+        User user = userDao.findById(48);
+        System.out.println(user);
+    }
+
+    @org.junit.Test
+    public void findByName() {
+        List&lt;User&gt; users = userDao.findByName(&quot;%王%&quot;);
+        for (User user: users) {
+            System.out.println(user);
+        }
+    }
+
+    @org.junit.Test
+    public void findTotal() {
+        int total = userDao.findTotal();
+        System.out.println(total);
+    }
+
+    @org.junit.Test
+    public void findByVo() {
+        QueryVo queryVo = new QueryVo();
+        User user = new User();
+        user.setUsername(&quot;%王%&quot;);
+        queryVo.setUser(user);
+        List&lt;User&gt; users = userDao.findUserByVo(queryVo);
+        for (User u: users) {
+            System.out.println(u);
+        }
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="mybatis-标签使用及细节"><a class="header" href="#mybatis-标签使用及细节">MyBatis 标签使用及细节</a></h2>
+<pre><code>    &lt;!--resource 用户指定配置文件的位置,是按照类路径的写法来写, 并且必须存在于类路径下--&gt;
+    &lt;!--&lt;properties resource=&quot;jdbcConfig.properties&quot;&gt;--&gt;
+
+    &lt;!-- 按照URL方式来写地址 --&gt;
+    &lt;properties url=&quot;file:///User/document/...&quot;&gt;
+    &lt;!--&lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;--&gt;
+    &lt;!--&lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/eesy?characterEncoding=UTF-8&quot;/&gt;--&gt;
+    &lt;!--&lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;--&gt;
+    &lt;!--&lt;property name=&quot;password&quot; value=&quot;jingxuetao&quot;/&gt;--&gt;
+    &lt;/properties&gt;
+</code></pre>
+<p>jdbcConfig.properties</p>
+<pre><code>jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/eesy?characterEncoding=UTF-8
+jdbc.username=root
+jdbc.password=jingxuetao
+</code></pre>
+<p>typeAliases使用</p>
+<pre><code>    &lt;!--使用typeAliases配置别名, 他只能配货车domain中的别名--&gt;
+    &lt;typeAliases&gt;
+        &lt;typeAlias type=&quot;com.swifter.domain.User&quot; alias=&quot;user&quot;&gt;&lt;/typeAlias&gt;
+    &lt;/typeAliases&gt;
+</code></pre>
+<p>package使用</p>
+<pre><code>    &lt;mappers&gt;
+        &lt;package name=&quot;com.swifter.dao&quot;/&gt;
+    &lt;/mappers&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><ol>
+<li>
+<p>mybatis中的连接池以及事务控制</p>
+<p>mybatis中连接池使用及分析</p>
+<p>mybatis事务控制的分析</p>
+</li>
+<li>
+<p>mybatis基于XML配置的动态SQL语句使用</p>
+<p>mappers配置文件中的几个标签:</p>
+<p>​	<if> <where> <foreach> <sql></p>
+</li>
+<li>
+<p>mybatis的多表查询</p>
+<ol>
+<li>一对多</li>
+<li>一对一</li>
+<li>多对多</li>
+</ol>
+</li>
+<li>
+<p>连接池:</p>
+<p>我们在实际开发中都会使用连接池, 可以减少我们获取链接所消耗的时间.</p>
+<p>连接池就是一个容器,就是一个集合, 必须是线程安全的,不能两个线程拿到同一个链接.</p>
+</li>
+<li>
+<p>mybatis连接池</p>
+<p>SqlMapConfig.xml, dataSource标签的type属性</p>
+<ol>
+<li>
+<p>POOLED, 采用传统的javax.sql.DataSource规范中的连接池</p>
+</li>
+<li>
+<p>UNPOOLED, 虽然也实现了javax.sql.DataSource, 但是没有池的思想</p>
+</li>
+<li>
+<p>JNDI, 采用服务器提供的JNDI技术实现, 来获取DataSource对象,不同服务器所拿到的对象不一样</p>
+<p>如果不是web或者maven的war工程,不能使用.</p>
+</li>
+</ol>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><pre><code>&lt;!--
+    &lt;select id=&quot;findUserByCondition&quot; parameterType=&quot;com.swifter.domain.User&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+        select * from user where 1=1
+        &lt;if test=&quot;username != null&quot;&gt;
+            and username = #{username}
+        &lt;/if&gt;
+        &lt;if test=&quot;sex != null&quot;&gt;
+            and sex = #{sex}
+        &lt;/if&gt;
+    &lt;/select&gt;
+    --&gt;
+    &lt;select id=&quot;findUserByCondition&quot; parameterType=&quot;com.swifter.domain.User&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+        select * from user
+        &lt;where&gt; --避免加上1=1, 让SQL看起来更清晰简洁
+            &lt;if test=&quot;username != null&quot;&gt;
+                and username = #{username}
+            &lt;/if&gt;
+            &lt;if test=&quot;sex != null&quot;&gt;
+                and sex = #{sex}
+            &lt;/if&gt;
+        &lt;/where&gt;
+    &lt;/select&gt;
+
+    &lt;sql id=&quot;defaultUser&quot;&gt;
+        select * from user
+    &lt;/sql&gt;
+
+    &lt;select id=&quot;findUserInIds&quot; parameterType=&quot;com.swifter.domain.QueryVo&quot; resultType=&quot;com.swifter.domain.User&quot;&gt;
+--         select * from user
+        &lt;include refid=&quot;defaultUser&quot;&gt;&lt;/include&gt;
+        &lt;where&gt;
+            &lt;if test=&quot;ids != null and ids.size()&gt;0&quot;&gt;
+                &lt;foreach collection=&quot;ids&quot; open=&quot;and id in (&quot; close=&quot;)&quot; item=&quot;id&quot; separator=&quot;,&quot;&gt;
+                    #{id}
+                &lt;/foreach&gt;
+            &lt;/if&gt;
+        &lt;/where&gt;
+    &lt;/select&gt;
+</code></pre>
+<pre><code>/**
+     * 根据传入的参数条件查询
+     * @return
+     */
+    List&lt;User&gt; findUserByCondition(User user);
+
+    /**
+     * 根据queryvo中的ID集合, 实现查询用户列表
+     * @param vo
+     * @return
+     */
+    List&lt;User&gt; findUserInIds(QueryVo vo);
+</code></pre>
+<pre><code>public class QueryVo {
+    private List&lt;Integer&gt; ids;
+
+    public List&lt;Integer&gt; getIds() {
+        return ids;
+    }
+
+    public void setIds(List&lt;Integer&gt; ids) {
+        this.ids = ids;
+    }
+}
+</code></pre>
+<pre><code>    @org.junit.Test
+    public void findUserByCondition() {
+        User user = new User();
+        user.setUsername(&quot;老王&quot;);
+        user.setSex(&quot;女&quot;);
+        List&lt;User&gt; users = userDao.findUserByCondition(user);
+        for(User u: users) {
+            System.out.println(u);
+        }
+    }
+
+    @org.junit.Test
+    public void findUserInIds() {
+        QueryVo queryVo = new QueryVo();
+        List&lt;Integer&gt; integers = new ArrayList&lt;Integer&gt;();
+        integers.add(41);
+        integers.add(42);
+        queryVo.setIds(integers);
+        List&lt;User&gt; users = userDao.findUserInIds(queryVo);
+        for(User u: users) {
+            System.out.println(u);
+        }
+    }
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mybatis中的多表查询"><a class="header" href="#mybatis中的多表查询">MyBatis中的多表查询</a></h1>
+<p>表之间的关系有几种:</p>
+<ol>
+<li>一对多</li>
+<li>多对一</li>
+<li>一对一</li>
+<li>多对多</li>
+</ol>
+<p>举例:</p>
+<p>​	用户和订单,一对多</p>
+<p>​	一个人只能有一个身份证号,一对一</p>
+<p>​	一个学生可以被多个老师教, 多对多</p>
+<p>特例: 如果每个订单只属于一个用户, 所以MyBatis就把多对一看成一对一.</p>
+<pre><code>&lt;!--封装account和user的resultMap--&gt;
+    &lt;resultMap id=&quot;accountUserMap&quot; type=&quot;com.swifter.domain.Account&quot;&gt;
+        &lt;id property=&quot;id&quot; column=&quot;aid&quot;&gt;&lt;/id&gt;
+        &lt;result property=&quot;uid&quot; column=&quot;uid&quot;&gt;&lt;/result&gt;
+        &lt;result property=&quot;money&quot; column=&quot;money&quot;&gt;&lt;/result&gt;
+        &lt;!--一对一的关系映射, 配置封装user的内容--&gt;
+        &lt;association property=&quot;user&quot; column=&quot;uid&quot;&gt;
+            &lt;id property=&quot;id&quot; column=&quot;id&quot;&gt;&lt;/id&gt;
+            &lt;result property=&quot;username&quot; column=&quot;username&quot;&gt;&lt;/result&gt;
+            &lt;result property=&quot;address&quot; column=&quot;address&quot;&gt;&lt;/result&gt;
+            &lt;result property=&quot;sex&quot; column=&quot;sex&quot;&gt;&lt;/result&gt;
+            &lt;result property=&quot;birthday&quot; column=&quot;birthday&quot;&gt;&lt;/result&gt;
+        &lt;/association&gt;
+    &lt;/resultMap&gt;
+
+    &lt;!-- ==============================================--&gt;
+    &lt;!-- 配置查询所有操作 --&gt;
+    &lt;select id=&quot;findAll&quot; resultMap=&quot;accountUserMap&quot;&gt;
+        select u.*, a.id as aid, a.uid, a.money from account a, user u where u.id=a.UID
+    &lt;/select&gt;
+</code></pre>
+<pre><code>public class Account implements Serializable {
+    private Integer id;
+    private Integer uid;
+    private Double money;
+    //从表实体应该包含一个主表实体的对象引用
+    private User user;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Account{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, uid=&quot; + uid +
+                &quot;, money=&quot; + money +
+                &quot;, user=&quot; + user +
+                '}';
+    }
+}
+</code></pre>
+<p>mybatis中的多表查询:</p>
+<p>​	示例: 用户和账户</p>
+<p>​		一个用户可以有多个账户</p>
+<p>​		一个账户只能属于一个用户</p>
+<p>​	步骤:</p>
+<ol>
+<li>
+<p>先建立两张表, 一张用户表, 一张账户表.</p>
+</li>
+<li>
+<p>建立实体类, 用户实体类, 账户实体类</p>
+</li>
+<li>
+<p>建立两个配置文件</p>
+</li>
+<li>
+<p>实现配置</p>
+<p>当我们查询用户时, 可以同时得到用户下所包含的账户信息.</p>
+<p>当我们查询账户时,可以同时得到账户的所有信息.</p>
+</li>
+</ol>
+<pre><code>    &lt;!--一对多  定义user resultMap--&gt;
+    &lt;resultMap id=&quot;userAccountMap&quot; type=&quot;user&quot;&gt;
+        &lt;id property=&quot;id&quot; column=&quot;id&quot;&gt;&lt;/id&gt;
+        &lt;result property=&quot;username&quot; column=&quot;username&quot;&gt;&lt;/result&gt;
+        &lt;result property=&quot;address&quot; column=&quot;address&quot;&gt;&lt;/result&gt;
+        &lt;result property=&quot;sex&quot; column=&quot;sex&quot;&gt;&lt;/result&gt;
+        &lt;result property=&quot;birthday&quot; column=&quot;birthday&quot;&gt;&lt;/result&gt;
+&lt;!--        配置user对象中account的映射--&gt;
+        &lt;collection property=&quot;accounts&quot; ofType=&quot;com.swifter.domain.Account&quot;&gt;
+            &lt;id property=&quot;id&quot; column=&quot;aid&quot;&gt;&lt;/id&gt;
+            &lt;result column=&quot;uid&quot; property=&quot;uid&quot;&gt;&lt;/result&gt;
+            &lt;result column=&quot;money&quot; property=&quot;money&quot;&gt;&lt;/result&gt;
+        &lt;/collection&gt;
+    &lt;/resultMap&gt;
+    &lt;!-- ==============================================--&gt;
+    &lt;!-- 配置查询所有操作 --&gt;
+    &lt;select id=&quot;findAll&quot; resultMap=&quot;userAccountMap&quot;&gt;
+    select * from user u left join account a on u.id=a.uid
+    &lt;/select&gt;
+</code></pre>
+<pre><code>public class User implements Serializable{
+
+    private Integer id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;
+
+    //一对多关系映射, 主表实体应该包含从表实体的集合引用
+    private List&lt;Account&gt; accounts;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List&lt;Account&gt; getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List&lt;Account&gt; accounts) {
+        this.accounts = accounts;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, username='&quot; + username + '\'' +
+                &quot;, birthday=&quot; + birthday +
+                &quot;, sex='&quot; + sex + '\'' +
+                &quot;, address='&quot; + address + '\'' +
+                &quot;, accounts=&quot; + accounts +
+                '}';
+    }
+}
+</code></pre>
+<p>示例: 用户和角色</p>
+<p>步骤: </p>
+<ol>
+<li>
+<p>两张表: 用户, 角色 还有中间表</p>
+</li>
+<li>
+<p>建立两个实体类, 用户角色各自包含对方一个集合引用</p>
+</li>
+<li>
+<p>两个配置文件: 用户配置文件, 角色配置文件</p>
+</li>
+<li>
+<p>实现配置: </p>
+<p>当查询用户时, 可以同时得到用户所包含的角色信息</p>
+<p>当查询角色时, 可以同时得到角色下的用户信息.</p>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>
